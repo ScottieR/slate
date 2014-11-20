@@ -75,12 +75,16 @@ curl "http://travelenvy.com/api/places"
     "price"=>nil, 
     "currency"=>"USD", 
     "main_photo_url"=>"/tmp/assets/photos/3449/original/DSC_0083.jpg?1414519897", 
-    "saving_user_ids"=>[1], 
-    "photo_ids"=>[3449, 3448, 3447, 3446, 3445, 3444, 3443, 3442, 3441, 3440, 3439], 
-    "source_url_ids"=>[], 
-    "plan_ids"=>[], 
-    "tops_list_ids"=>[], 
-    "tip_ids"=>[1183, 1182, 1181, 1180, 1179, 1178, 1177, 1176, 1175, 1174, 1173, 1172, 1171, 1168]}
+    "_links":{
+        "self":{"href":"/api/places/196"},
+        "most_pop_photo":{"href":"/api/photos/1031"},
+        "saving_users":{"href":"/api/saved_places?place=196"},
+        "photos":{"href":"/api/photos?place=196"},
+        "source_urls":{"href":"/api/source_urls?place=196"},
+        "tops_lists":{"href":"/api/tops_lists?place=196"},
+        "plans":{"href":"/api/plan_places?place=196"},
+        "tips":{"href":"/api/tips?place=196"}
+    }
 ]}
 ```
 
@@ -130,12 +134,8 @@ most_pop_photo_id | ID of the most popular photo (photo most often chosen as a u
 price | estimated price
 currency | currency of the estimated price
 main_photo_url | url of the main photo to show for this place (based on the current user's preferences)
-saving_user_ids | array of ids of users that have saved this place to their passport
-photo_ids | array of ids of photos of this place
-source_url_ids | array of ids of source urls from which we have pulled information on this place
-plan_ids | array of ids of plans in which this place appears
-tops_list_ids | array of ids of tops lists in which this place appears
-tips_ids | array of ids of tips left for this place
+_links[ ] | Array of links to access associated objects.  Here is: "self", "most_pop_photo","saving_users", "photos", "source_urls", "tops_lists", "plans", "tips"
+
 
 
 ## Get a Specific Place
@@ -144,9 +144,43 @@ tips_ids | array of ids of tips left for this place
 
 `GET https://travelenvy.com/api/places/<id>`
 
-### Query Parameters
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+ID | The ID of the place to retrieve
 
 ### Response
+
+Parameter | Description
+--------- | -----------
+id | Place ID
+added_by | ID of user that first uploaded this place
+name | Place's name
+summary | One line summary of place, created by TravelEnvy admins
+category | Place category (options: lodging, restaurant, city, bar, activity, store, site, other)
+address | Full address
+city_state | city, state
+country | 2-letter iso country code
+zip | zip code
+neighborhood | neighborhood
+lat | latitude
+lng | longitude
+email | email address
+phone | phone number with leading country code
+website | main website for place
+airports | closest airport codes
+saves_count | number of users with this place in their passport
+photos_count | number of photos of this place
+continent_id | id of the continent (1: North America, 2: Central America, 3: South America, 4: [Empty], 5: Africa, 6: Europe, 7: Middle East, 8: Asia, 9: Australia & Oceania, 10: Caribbean)
+featured | boolean, true if TravelEnvy has marked it as a featured place
+created_at | timestamp of time/date created
+updated_at | timestamp of time/date last updated
+most_pop_photo_id | ID of the most popular photo (photo most often chosen as a user's main photo when saving this place)
+price | estimated price
+currency | currency of the estimated price
+main_photo_url | url of the main photo to show for this place (based on the current user's preferences)
+
 
 
 ## Update a Specific Place

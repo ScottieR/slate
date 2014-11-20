@@ -56,7 +56,7 @@ follower | false | Filters relationships by the given user id.  Returns relation
 followed | false | Filters relationships by the given user id.  Returns relationships where the given user id is the followed user
 
 ### Response
-Parameter | Description
+Attribute | Description
 --------- | -----------
 id | Relationship ID
 follower_id | ID of the user following

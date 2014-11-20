@@ -27,7 +27,7 @@ plans | false | A comma separated list of plan ids to return
 
 ### Response
 
-Parameter | Description
+Attribute | Description
 --------- | -----------
 id | Plan ID
 creator_id | user that created this plan

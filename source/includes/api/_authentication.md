@@ -32,9 +32,18 @@ access = client.password.get_token('user@example.com', 'sekret')
 puts access.token
 ```
 
+> This is the json response to the above code
+
+```json
+{
+	"access_token": "...", 
+	"token_type": "persistant"
+}
+```
+
 This is the endpoint to retrieve a user's access token when they have provided their credentials, or to use as a callback to authenticate using Facebook oauth
 
-## HTTP Request
+### HTTP Request
 `POST https://travelenvy.com/api/sessions`
 
 Parameter | Required | Description
@@ -50,15 +59,26 @@ Either the email and password parameters must be submitted, or this endpoint mus
 You must email us at hello@travelenvy.com to register your API, in order to be granted a client_id and client_secret.
 </aside>
 
-# Get current resource owner (aka current user)
+### Response
+
+Attribute | Description
+--------- | -----------
+access_token | token to append to all following requests
+token_type | the type of token provided, default is persistant, it does not expire until a user explicitly resets it by logging out.
+
+## Get current resource owner (aka current user)
+
+> To access the current_user use this code:
+
+```shell
+	curl https://travelenvy.com/api/me?access_token=your_token
+```
 
 ```ruby
 access.get("/api/me").parsed
 ```
 
-```json
-The json response is the same as "Getting a Specific User", please see that section below.
-```
+> The json response is the same as "Getting a Specific User", please see that section below.
 
 This is the endpoint to retrieve the currently logged in user.
 
