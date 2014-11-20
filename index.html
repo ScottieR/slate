@@ -13,7 +13,7 @@
 
       <script>
         $(function() {
-          setupLanguages(["shell","ruby","python"]);
+          setupLanguages(["shell","ruby"]);
         });
       </script>
   </head>
@@ -30,7 +30,6 @@
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
               <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -39,7 +38,7 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
+            <li><a href='https://travelenvy.com/developer'>Sign Up for a Developer Key</a></li>
             <li><a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
@@ -47,134 +46,177 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>Welcome to TravelEnvy&rsquo;s API! You can use our API to access TravelEnvy endpoints.  Our API follows RESTful principles, the details of which are provided here.</p>
 
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>You can view code examples in the dark area to the right.</p>
 
-<p>This example API documentation page was created with <a href="http://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&rsquo;s documentation.</p>
-<h1 id='authentication'>Authentication</h1>
+          <h1 id='authentication'>Authentication</h1><h2 id='logging-in-a-user-and-authenticating-your-client'>Logging in a user and authenticating your client</h2>
 <blockquote>
 <p>To authorize, use this code:</p>
 </blockquote>
-<pre class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
+<pre><code class="highlight shell">    curl --data <span class="s2">"email=[email]&amp;password=[password]"</span> https://travelenvy.com/api/sessions
+</code></pre>
+<pre><code class="highlight ruby"><span class="c1">#In your ruby console:</span>
+<span class="nb">require</span> <span class="s1">'oauth2'</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</pre>
-<pre class="highlight python"><span class="kn">import</span> <span class="s">'kittn'</span>
+<span class="n">client_id</span>     <span class="o">=</span> <span class="s1">'...'</span> <span class="c1"># your client's id</span>
+<span class="n">client_secret</span> <span class="o">=</span> <span class="s1">'...'</span> <span class="c1"># your client's secret</span>
+<span class="n">redirect_uri</span>  <span class="o">=</span> <span class="s1">'...'</span> <span class="c1"># your client's redirect uri</span>
+<span class="n">site</span>          <span class="o">=</span> <span class="s2">"http://localhost:3000"</span> <span class="c1"># your provider server, this is showing localhost</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">Kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</pre>
-<pre class="highlight shell"><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</pre>
+<span class="n">client</span> <span class="o">=</span> <span class="no">OAuth2</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">,</span> <span class="ss">:site</span> <span class="o">=&gt;</span> <span class="n">site</span><span class="p">)</span>
 
-<blockquote>
-<p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
-</blockquote>
+<span class="n">client</span><span class="p">.</span><span class="nf">auth_code</span><span class="p">.</span><span class="nf">authorize_url</span><span class="p">(</span><span class="ss">:redirect_uri</span> <span class="o">=&gt;</span> <span class="n">redirect_uri</span><span class="p">)</span>
+<span class="c1"># =&gt; http://localhost:3000/oauth/authorize?response_type=code&amp;client_id=...&amp;redirect_uri=...</span>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<span class="c1">#visit the url generated by the above code while signed in to a TravelEnvy account, then get the access_code returned in the url and use as [ACCESS_CODE] in the following call</span>
+<span class="n">access</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="nf">auth_code</span><span class="p">.</span><span class="nf">get_token</span><span class="p">([</span><span class="no">ACCESS_CODE</span><span class="p">],</span> <span class="ss">redirect_uri: </span><span class="n">redirect_uri</span><span class="p">)</span>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<span class="c1">#OR pass a valid username &amp; password to the oauth client retrieve the access token</span>
+<span class="n">access</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="nf">password</span><span class="p">.</span><span class="nf">get_token</span><span class="p">(</span><span class="s1">'user@example.com'</span><span class="p">,</span> <span class="s1">'sekret'</span><span class="p">)</span>
 
-<p><code class="prettyprint">Authorization: meowmeowmeow</code></p>
-
-<p><aside class="notice">
-You must replace <code class="prettyprint">meowmeowmeow</code> with your personal API key.
-</aside></p>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h1><pre class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</pre>
-<pre class="highlight python"><span class="kn">import</span> <span class="s">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">Kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</pre>
-<pre class="highlight shell">curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</pre>
+<span class="c1">#Get token to append to HTTP requests by calling</span>
+<span class="nb">puts</span> <span class="n">access</span><span class="p">.</span><span class="nf">token</span>
+</code></pre>
 
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>This is the json response to the above code</p>
 </blockquote>
-<pre class="highlight json"><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isis"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></pre>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+    </span><span class="s2">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"token_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"persistant"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
-<p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h1>
-<p><code class="prettyprint">GET http://example.com/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h1>
+<p>This is the endpoint to retrieve a user&rsquo;s access token when they have provided their credentials, or to use as a callback to authenticate using Facebook oauth</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">POST https://travelenvy.com/api/sessions</code></p>
+
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Default</th>
+<th>Required</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td>email</td>
+<td>true</td>
+<td>user&rsquo;s provided email address</td>
 </tr>
 <tr>
-<td>available</td>
+<td>password</td>
 <td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>user&rsquo;s provided password</td>
 </tr>
 </tbody></table>
 
-<p><aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+<p><aside class="notice">
+Either the email and password parameters must be submitted, or this endpoint must be used as a callback for Facebook&rsquo;s omniauth flow
 </aside></p>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h1><pre class="highlight ruby"><span class="nb">require</span> <span class="s1">'kittn'</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</pre>
-<pre class="highlight python"><span class="kn">import</span> <span class="s">'kittn'</span>
+<p><aside class="notice">
+You must email us at hello@travelenvy.com to register your API, in order to be granted a client_id and client_secret.
+</aside></p>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>access_token</td>
+<td>token to append to all following requests</td>
+</tr>
+<tr>
+<td>token_type</td>
+<td>the type of token provided, default is persistant, it does not expire until a user explicitly resets it by logging out.</td>
+</tr>
+</tbody></table>
+<h2 id='get-current-resource-owner-aka-current-user'>Get current resource owner (aka current user)</h2>
+<blockquote>
+<p>To access the current_user use this code:</p>
+</blockquote>
+<pre><code class="highlight shell">    curl https://travelenvy.com/api/me?access_token<span class="o">=</span>your_token
+</code></pre>
+<pre><code class="highlight ruby"><span class="n">access</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"/api/me"</span><span class="p">).</span><span class="nf">parsed</span>
+</code></pre>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">Kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</pre>
-<pre class="highlight shell">curl <span class="s2">"http://example.com/api/kittens/3"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</pre>
+<blockquote>
+<p>The json response is the same as &ldquo;Getting a Specific User&rdquo;, please see that section below.</p>
+</blockquote>
+
+<p>This is the endpoint to retrieve the currently logged in user.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">GET https://travelenvy.com/api/me</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<p>None.</p>
+<h3 id='response'>Response</h3>
+<p>The response is the same as &ldquo;Getting a Specific User&rdquo;, please see that section below.</p>
+
+          <h1 id='users'>Users</h1><h2 id='get-all-users'>Get All Users</h2><pre><code class="highlight ruby"><span class="c1">#follow authentication steps to get the "access" object</span>
+
+ <span class="n">access</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"/api/users"</span><span class="p">).</span><span class="nf">parsed</span>
+</code></pre>
 
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<pre class="highlight json"><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isis"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></pre>
+<pre><code class="highlight json"><span class="p">[</span><span class="w">
 
-<p>This endpoint retrieves a specific kitten.</p>
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
 
-<p><aside class="warning">If you&rsquo;re not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside></p>
-<h3 id='http-request'>HTTP Request</h1>
-<p><code class="prettyprint">GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h1>
+<p>This endpoint retrieves all users.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">GET https://travelenvy.com/api/users</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>users</td>
+<td>false</td>
+<td>A comma separated list of user ids by which to filter (ex: &ldquo;users=1,5,7&rdquo;).  If not present, returns all users.</td>
+</tr>
+<tr>
+<td>tastemakers</td>
+<td>false</td>
+<td>Boolean that if set to true, will return only users who are tastemakers.</td>
+</tr>
+<tr>
+<td>query</td>
+<td>false</td>
+<td>A string to users by (name, location, interests)</td>
+</tr>
+<tr>
+<td>near</td>
+<td>false</td>
+<td>Returns users (who have provided their primary location) within 20 miles of the given location (valid entries include city, lat/long, etc)</td>
+</tr>
+</tbody></table>
+<h2 id='get-a-specific-user'>Get a Specific User</h2><pre><code class="highlight ruby"><span class="c1">#follow authentication steps to get the "access" object</span>
+
+ <span class="n">access</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"/api/places/95"</span><span class="p">).</span><span class="nf">parsed</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="err">TODO</span><span class="w">
+</span><span class="err">}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves a specific user.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">GET https://travelenvy.com/api/user/&lt;ID&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -183,7 +225,1392 @@ Remember — a happy kitten is an authenticated kitten!
 </thead><tbody>
 <tr>
 <td>ID</td>
-<td>The ID of the cat to retrieve</td>
+<td>The ID of the user to retrieve</td>
+</tr>
+</tbody></table>
+
+          <h1 id='places'>Places</h1><h2 id='get-all-places'>Get All Places</h2><pre><code class="highlight ruby"><span class="n">access</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"/api/places"</span><span class="p">).</span><span class="nf">parsed</span>
+
+<span class="sb">```shell
+curl "http://travelenvy.com/api/places"
+  -H "Authorization: [ACCESS_TOKEN]"
+</span></code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="s2">"places"</span><span class="err">=&gt;[</span><span class="w">
+  </span><span class="err">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="err">=&gt;401,</span><span class="w"> 
+    </span><span class="s2">"added_by"</span><span class="err">=&gt;1,</span><span class="w"> 
+    </span><span class="s2">"name"</span><span class="err">=&gt;</span><span class="s2">"The London EDITION"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"summary"</span><span class="err">=&gt;</span><span class="s2">"New hotspot hotel on the edge of London's SoHo neighborhood"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"category"</span><span class="err">=&gt;</span><span class="s2">"lodging"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"address"</span><span class="err">=&gt;</span><span class="s2">"10 Berners Street, London, United Kingdom"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"city_state"</span><span class="err">=&gt;</span><span class="s2">"London"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"country"</span><span class="err">=&gt;</span><span class="s2">"gb"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"zip"</span><span class="err">=&gt;nil,</span><span class="w"> 
+    </span><span class="s2">"neighborhood"</span><span class="err">=&gt;</span><span class="s2">"SoHo"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"lat"</span><span class="err">=&gt;</span><span class="s2">"51.516773"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"lng"</span><span class="err">=&gt;</span><span class="s2">"-0.136334"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"email"</span><span class="err">=&gt;nil,</span><span class="w"> 
+    </span><span class="s2">"phone"</span><span class="err">=&gt;</span><span class="s2">"+44 20 7781 0000"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"website"</span><span class="err">=&gt;</span><span class="s2">"http://www.edition-hotels.marriott.com/london"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"price"</span><span class="err">=&gt;</span><span class="s2">"477.00"</span><span class="err">,</span><span class="w">
+    </span><span class="s2">"currency"</span><span class="err">=&gt;</span><span class="s2">"USD"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"airports"</span><span class="err">=&gt;</span><span class="s2">"Gatwick Airport,Stansted Airport,London Luton Airport,"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"saves_count"</span><span class="err">=&gt;1,</span><span class="w"> 
+    </span><span class="s2">"photos_count"</span><span class="err">=&gt;10,</span><span class="w"> 
+    </span><span class="s2">"continent_id"</span><span class="err">=&gt;6,</span><span class="w"> 
+    </span><span class="s2">"featured"</span><span class="err">=&gt;false,</span><span class="w"> 
+    </span><span class="s2">"created_at"</span><span class="err">=&gt;</span><span class="s2">"2014-06-27T03:39:36.165Z"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"updated_at"</span><span class="err">=&gt;</span><span class="s2">"2014-07-24T19:18:33.162Z"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"most_pop_photo_id"</span><span class="err">=&gt;2763,</span><span class="w"> 
+    </span><span class="s2">"main_photo_url"</span><span class="err">=&gt;</span><span class="s2">"/tmp/assets/photos/2763/original/520.?1403840443"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"saving_user_ids"</span><span class="err">=&gt;[1],</span><span class="w"> 
+    </span><span class="s2">"photo_ids"</span><span class="err">=&gt;[2763,</span><span class="w"> </span><span class="err">2762,</span><span class="w"> </span><span class="err">2761,</span><span class="w"> </span><span class="err">2760,</span><span class="w"> </span><span class="err">2759,</span><span class="w"> </span><span class="err">2758,</span><span class="w"> </span><span class="err">2757,</span><span class="w"> </span><span class="err">2756,</span><span class="w"> </span><span class="err">2755,</span><span class="w"> </span><span class="err">2754],</span><span class="w"> 
+    </span><span class="s2">"source_url_ids"</span><span class="err">=&gt;[],</span><span class="w"> 
+    </span><span class="s2">"plan_ids"</span><span class="err">=&gt;[255],</span><span class="w"> 
+    </span><span class="s2">"tops_list_ids"</span><span class="err">=&gt;[],</span><span class="w"> 
+    </span><span class="s2">"tip_ids"</span><span class="err">=&gt;[]</span><span class="w">
+  </span><span class="err">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="err">=&gt;477,</span><span class="w"> 
+    </span><span class="s2">"added_by"</span><span class="err">=&gt;1,</span><span class="w"> 
+    </span><span class="s2">"name"</span><span class="err">=&gt;</span><span class="s2">"Bestia"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"summary"</span><span class="err">=&gt;nil,</span><span class="w"> 
+    </span><span class="s2">"category"</span><span class="err">=&gt;</span><span class="s2">"restaurant"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"address"</span><span class="err">=&gt;</span><span class="s2">"2121 E 7th Pl, Los Angeles, CA 90021, United States"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"city_state"</span><span class="err">=&gt;</span><span class="s2">"Los Angeles, California"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"country"</span><span class="err">=&gt;</span><span class="s2">"us"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"zip"</span><span class="err">=&gt;</span><span class="s2">"90021"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"neighborhood"</span><span class="err">=&gt;</span><span class="s2">"Downtown"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"lat"</span><span class="err">=&gt;</span><span class="s2">"34.033717"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"lng"</span><span class="err">=&gt;</span><span class="s2">"-118.229281"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"email"</span><span class="err">=&gt;nil,</span><span class="w"> 
+    </span><span class="s2">"phone"</span><span class="err">=&gt;</span><span class="s2">"+1 213-514-5724"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"website"</span><span class="err">=&gt;</span><span class="s2">"http://www.bestiala.com/"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"airports"</span><span class="err">=&gt;nil,</span><span class="w"> 
+    </span><span class="s2">"saves_count"</span><span class="err">=&gt;1,</span><span class="w"> 
+    </span><span class="s2">"photos_count"</span><span class="err">=&gt;11,</span><span class="w"> 
+    </span><span class="s2">"continent_id"</span><span class="err">=&gt;nil,</span><span class="w"> 
+    </span><span class="s2">"featured"</span><span class="err">=&gt;false,</span><span class="w"> 
+    </span><span class="s2">"created_at"</span><span class="err">=&gt;</span><span class="s2">"2014-10-13T19:25:15.952Z"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"updated_at"</span><span class="err">=&gt;</span><span class="s2">"2014-11-11T00:46:44.670Z"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"most_pop_photo_id"</span><span class="err">=&gt;3449,</span><span class="w"> 
+    </span><span class="s2">"price"</span><span class="err">=&gt;nil,</span><span class="w"> 
+    </span><span class="s2">"currency"</span><span class="err">=&gt;</span><span class="s2">"USD"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"main_photo_url"</span><span class="err">=&gt;</span><span class="s2">"/tmp/assets/photos/3449/original/DSC_0083.jpg?1414519897"</span><span class="err">,</span><span class="w"> 
+    </span><span class="s2">"_links"</span><span class="p">:{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/places/196"</span><span class="p">},</span><span class="w">
+        </span><span class="s2">"most_pop_photo"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/photos/1031"</span><span class="p">},</span><span class="w">
+        </span><span class="s2">"saving_users"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/saved_places?place=196"</span><span class="p">},</span><span class="w">
+        </span><span class="s2">"photos"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/photos?place=196"</span><span class="p">},</span><span class="w">
+        </span><span class="s2">"source_urls"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/source_urls?place=196"</span><span class="p">},</span><span class="w">
+        </span><span class="s2">"tops_lists"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/tops_lists?place=196"</span><span class="p">},</span><span class="w">
+        </span><span class="s2">"plans"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/plan_places?place=196"</span><span class="p">},</span><span class="w">
+        </span><span class="s2">"tips"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/tips?place=196"</span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="err">]</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoints retrieves all places from the TravelEnvy database (ie lodging, restaurants, activities, sites, stores&hellip;).</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">GET https://travelenvy.com/api/places</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>places[ ]</td>
+<td>false</td>
+<td>An arrays of IDs to filter the place list with, optional</td>
+</tr>
+<tr>
+<td>query</td>
+<td>false</td>
+<td>A search term to query all places. Will return places with similar names, addresses, category and tags as the given query</td>
+</tr>
+<tr>
+<td>country</td>
+<td>false</td>
+<td>2-letter iso country code, with which to filter places.  Reference: http://www.worldatlas.com/aatlas/ctycodes.htm</td>
+</tr>
+<tr>
+<td>near</td>
+<td>false</td>
+<td>Location as a string (address, city, latitude and longitude, etc).  Will return places within 20 miles of the given location.</td>
+</tr>
+</tbody></table>
+
+<p><aside class="warning">If you&rsquo;re not using an administrator API key, the &ldquo;near&rdquo; parameter will not be available due to 3rd party account quotas.  Set up your own &ldquo;near&rdquo; functionality using <a href="https://developers.google.com/maps/documentation/javascript/places">Google&rsquo;s Places API</a> or the <a href="http://www.rubygeocoder.com/">Geocoder gem</a>.</aside></p>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Place ID</td>
+</tr>
+<tr>
+<td>added_by</td>
+<td>ID of user that first uploaded this place</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Place&rsquo;s name</td>
+</tr>
+<tr>
+<td>summary</td>
+<td>One line summary of place, created by TravelEnvy admins</td>
+</tr>
+<tr>
+<td>category</td>
+<td>Place category (options: lodging, restaurant, city, bar, activity, store, site, other)</td>
+</tr>
+<tr>
+<td>address</td>
+<td>Full address</td>
+</tr>
+<tr>
+<td>city_state</td>
+<td>city, state</td>
+</tr>
+<tr>
+<td>country</td>
+<td>2-letter iso country code</td>
+</tr>
+<tr>
+<td>zip</td>
+<td>zip code</td>
+</tr>
+<tr>
+<td>neighborhood</td>
+<td>neighborhood</td>
+</tr>
+<tr>
+<td>lat</td>
+<td>latitude</td>
+</tr>
+<tr>
+<td>lng</td>
+<td>longitude</td>
+</tr>
+<tr>
+<td>email</td>
+<td>email address</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>phone number with leading country code</td>
+</tr>
+<tr>
+<td>website</td>
+<td>main website for place</td>
+</tr>
+<tr>
+<td>airports</td>
+<td>closest airport codes</td>
+</tr>
+<tr>
+<td>saves_count</td>
+<td>number of users with this place in their passport</td>
+</tr>
+<tr>
+<td>photos_count</td>
+<td>number of photos of this place</td>
+</tr>
+<tr>
+<td>continent_id</td>
+<td>id of the continent (1: North America, 2: Central America, 3: South America, 4: [Empty], 5: Africa, 6: Europe, 7: Middle East, 8: Asia, 9: Australia &amp; Oceania, 10: Caribbean)</td>
+</tr>
+<tr>
+<td>featured</td>
+<td>boolean, true if TravelEnvy has marked it as a featured place</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>timestamp of time/date created</td>
+</tr>
+<tr>
+<td>updated_at</td>
+<td>timestamp of time/date last updated</td>
+</tr>
+<tr>
+<td>most_pop_photo_id</td>
+<td>ID of the most popular photo (photo most often chosen as a user&rsquo;s main photo when saving this place)</td>
+</tr>
+<tr>
+<td>price</td>
+<td>estimated price</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>currency of the estimated price</td>
+</tr>
+<tr>
+<td>main_photo_url</td>
+<td>url of the main photo to show for this place (based on the current user&rsquo;s preferences)</td>
+</tr>
+<tr>
+<td>_links[ ]</td>
+<td>Array of links to access associated objects.  Here is: &ldquo;self&rdquo;, &ldquo;most_pop_photo&rdquo;,&ldquo;saving_users&rdquo;, &ldquo;photos&rdquo;, &ldquo;source_urls&rdquo;, &ldquo;tops_lists&rdquo;, &ldquo;plans&rdquo;, &ldquo;tips&rdquo;</td>
+</tr>
+</tbody></table>
+<h2 id='get-a-specific-place'>Get a Specific Place</h2><h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">GET https://travelenvy.com/api/places/&lt;id&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the place to retrieve</td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Place ID</td>
+</tr>
+<tr>
+<td>added_by</td>
+<td>ID of user that first uploaded this place</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Place&rsquo;s name</td>
+</tr>
+<tr>
+<td>summary</td>
+<td>One line summary of place, created by TravelEnvy admins</td>
+</tr>
+<tr>
+<td>category</td>
+<td>Place category (options: lodging, restaurant, city, bar, activity, store, site, other)</td>
+</tr>
+<tr>
+<td>address</td>
+<td>Full address</td>
+</tr>
+<tr>
+<td>city_state</td>
+<td>city, state</td>
+</tr>
+<tr>
+<td>country</td>
+<td>2-letter iso country code</td>
+</tr>
+<tr>
+<td>zip</td>
+<td>zip code</td>
+</tr>
+<tr>
+<td>neighborhood</td>
+<td>neighborhood</td>
+</tr>
+<tr>
+<td>lat</td>
+<td>latitude</td>
+</tr>
+<tr>
+<td>lng</td>
+<td>longitude</td>
+</tr>
+<tr>
+<td>email</td>
+<td>email address</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>phone number with leading country code</td>
+</tr>
+<tr>
+<td>website</td>
+<td>main website for place</td>
+</tr>
+<tr>
+<td>airports</td>
+<td>closest airport codes</td>
+</tr>
+<tr>
+<td>saves_count</td>
+<td>number of users with this place in their passport</td>
+</tr>
+<tr>
+<td>photos_count</td>
+<td>number of photos of this place</td>
+</tr>
+<tr>
+<td>continent_id</td>
+<td>id of the continent (1: North America, 2: Central America, 3: South America, 4: [Empty], 5: Africa, 6: Europe, 7: Middle East, 8: Asia, 9: Australia &amp; Oceania, 10: Caribbean)</td>
+</tr>
+<tr>
+<td>featured</td>
+<td>boolean, true if TravelEnvy has marked it as a featured place</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>timestamp of time/date created</td>
+</tr>
+<tr>
+<td>updated_at</td>
+<td>timestamp of time/date last updated</td>
+</tr>
+<tr>
+<td>most_pop_photo_id</td>
+<td>ID of the most popular photo (photo most often chosen as a user&rsquo;s main photo when saving this place)</td>
+</tr>
+<tr>
+<td>price</td>
+<td>estimated price</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>currency of the estimated price</td>
+</tr>
+<tr>
+<td>main_photo_url</td>
+<td>url of the main photo to show for this place (based on the current user&rsquo;s preferences)</td>
+</tr>
+</tbody></table>
+<h2 id='update-a-specific-place'>Update a Specific Place</h2><h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">PUT https://travelenvy.com/api/places/&lt;id&gt;</code></p>
+<h3 id='query-parameters'>Query Parameters</h3><h3 id='response'>Response</h3><h2 id='delete-a-specific-place'>Delete a Specific Place</h2><h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">DELETE https://travelenvy.com/api/places/&lt;id&gt;</code></p>
+<h3 id='query-parameters'>Query Parameters</h3><h3 id='response'>Response</h3>
+          <h1 id='plans'>Plans</h1><h2 id='get-all-plans'>Get all Plans</h2><pre><code class="highlight ruby"></code></pre>
+<pre><code class="highlight shell"></code></pre>
+<pre><code class="highlight json"></code></pre>
+
+<p>This endpoint returns all plans (ie itineraries)</p>
+
+<p><aside class="warning">If you&rsquo;re not using an administrator API key, note that some plans will return 403 Forbidden if they are hidden for admins or their owners only.</aside></p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">GET https://travelenvy.com/api/plans</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>plans</td>
+<td>false</td>
+<td>A comma separated list of plan ids to return</td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Plan ID</td>
+</tr>
+<tr>
+<td>creator_id</td>
+<td>user that created this plan</td>
+</tr>
+<tr>
+<td>title</td>
+<td>Title of the plan</td>
+</tr>
+<tr>
+<td>days</td>
+<td>Number of days in the plan</td>
+</tr>
+<tr>
+<td>summary</td>
+<td>brief description / summary of the plan</td>
+</tr>
+<tr>
+<td>people</td>
+<td>Number of people traveling on the plan</td>
+</tr>
+<tr>
+<td>countries</td>
+<td>countries visited in the plan</td>
+</tr>
+<tr>
+<td>country_codes</td>
+<td>2-letter iso codes of countries visited in the plan</td>
+</tr>
+<tr>
+<td>total_cost</td>
+<td>Sum of estimated costs of the plan</td>
+</tr>
+<tr>
+<td>saves_count</td>
+<td>number of users saving the plan to their passport</td>
+</tr>
+<tr>
+<td>featured</td>
+<td>boolean as to whether the plan is marked as featured</td>
+</tr>
+<tr>
+<td>publish</td>
+<td>boolean, whether the plan is marked as a draft or published</td>
+</tr>
+<tr>
+<td>sightseeing</td>
+<td>boolean, if this plan focuses on sightseeing</td>
+</tr>
+<tr>
+<td>food</td>
+<td>boolean, if this plan focuses on food</td>
+</tr>
+<tr>
+<td>romance</td>
+<td>boolean, if this plan focuses on romance</td>
+</tr>
+<tr>
+<td>family</td>
+<td>boolean, if this plan focuses family</td>
+</tr>
+<tr>
+<td>art_design</td>
+<td>boolean, if this plan focuses on art and design</td>
+</tr>
+<tr>
+<td>outdoors</td>
+<td>boolean, if this plan focuses on outdoors</td>
+</tr>
+<tr>
+<td>partying</td>
+<td>boolean, if this plan focuses on partying</td>
+</tr>
+<tr>
+<td>relaxing</td>
+<td>boolean, if this plan focuses on relaxing</td>
+</tr>
+<tr>
+<td>shopping</td>
+<td>boolean, if this plan focuses on shopping</td>
+</tr>
+<tr>
+<td>big_group</td>
+<td>boolean, if this plan is focused around a big group</td>
+</tr>
+<tr>
+<td>event</td>
+<td>boolean, if this plan is focused around an event</td>
+</tr>
+<tr>
+<td>music</td>
+<td>boolean, if this plan focuses on music</td>
+</tr>
+<tr>
+<td>hidden_gems</td>
+<td>boolean, if this plan focuses on hidden gems</td>
+</tr>
+<tr>
+<td>authentic_local</td>
+<td>boolean, if this plan focuses on authentic local spots</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>datetime this plan was created</td>
+</tr>
+<tr>
+<td>updated_at</td>
+<td>datetime this plan was last updated</td>
+</tr>
+<tr>
+<td>start_date</td>
+<td>(private) start date of the plan, private to travelers on the plan</td>
+</tr>
+<tr>
+<td>end_date</td>
+<td>(private) end date of the plan, private to travelers on the plan</td>
+</tr>
+<tr>
+<td>start_location</td>
+<td>(private) start location of the plan, private to travelers on the plan</td>
+</tr>
+<tr>
+<td>end_location</td>
+<td>(private) end location of the plan, private to travelers on the plan</td>
+</tr>
+<tr>
+<td>cover_photo_url</td>
+<td>src of the main image for this plan</td>
+</tr>
+<tr>
+<td>stops</td>
+<td>A hash of the stops in this plan.  Ordered chronologically, with the city name and nights spent at each stop</td>
+</tr>
+<tr>
+<td>_links</td>
+<td>An array of href links to retrieve the associated objects of this plan (&ldquo;self&rdquo; the plan&rsquo;s href, &ldquo;saving_users&rdquo; all users saving this plan, &ldquo;plan_places&rdquo; the items featured in this plan, &ldquo;travelers&rdquo; the users traveling on this plan )</td>
+</tr>
+</tbody></table>
+<h2 id='get-a-specific-plan'>Get a Specific Plan</h2>
+<p>This endpoint retrieves a specific plan.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">GET https://travelenvy.com/api/plans/&lt;ID&gt;</code></p>
+
+<p><aside class="warning">If you&rsquo;re not using an administrator API key, note that some plans will return 403 Forbidden if they are hidden for admins or their owners only.</aside></p>
+<h2 id='update-a-specific-plan'>Update a Specific Plan</h2><h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">PUT https://travelenvy.com/api/plans/&lt;id&gt;</code></p>
+
+<p><aside class="warning">If you&rsquo;re not using an administrator API key, note that this will return 403 Forbidden unless the current user is an editor of this plan.</aside></p>
+<h3 id='query-parameters'>Query Parameters</h3><h3 id='response'>Response</h3><h2 id='delete-a-specific-plan'>Delete a Specific Plan</h2><h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">DELETE https://travelenvy.com/api/plans/&lt;id&gt;</code></p>
+
+<p><aside class="warning">If you&rsquo;re not using an administrator API key, note that plans not owned by the current user will return 403 Forbidden.</aside></p>
+<h3 id='query-parameters'>Query Parameters</h3><h3 id='response'>Response</h3>
+          <h1 id='plan-places'>Plan Places</h1><h2 id='get-a-list-of-plan-places'>Get a list of Plan Places</h2>
+<blockquote>
+<p>To Get a list of plan_places use the following code:</p>
+</blockquote>
+<pre><code class="highlight shell">  curl https://travelenvy.com/api/plan_places?access_token<span class="o">=</span>your_token
+</code></pre>
+<pre><code class="highlight ruby"><span class="n">access</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"/api/plan_places"</span><span class="p">).</span><span class="nf">parsed</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="s2">"plan_places"</span><span class="p">:[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">658</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"plan_id"</span><span class="p">:</span><span class="mi">235</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sortable_type"</span><span class="p">:</span><span class="s2">"Place"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sortable_id"</span><span class="p">:</span><span class="mi">101</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"position"</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"day"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"time"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"nights"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"chosen_category"</span><span class="p">:</span><span class="s2">"site"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"note"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"is_private"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cost"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cost_multiplier"</span><span class="p">:</span><span class="s2">"per person"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"currency"</span><span class="p">:</span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"est_price_cents"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"est_price_currency"</span><span class="p">:</span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"booked"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"start_img"</span><span class="p">:</span><span class="mi">644</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2014-01-22T04:20:17.783Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="s2">"2014-01-22T04:20:17.783Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"item"</span><span class="p">:{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">101</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"Hutton Hotel"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"category"</span><span class="p">:</span><span class="s2">"lodging"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"address"</span><span class="p">:</span><span class="s2">"1808 West End Avenue, Nashville, TN, United States"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city_state"</span><span class="p">:</span><span class="s2">"Nashville"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"country"</span><span class="p">:</span><span class="s2">"us"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"zip"</span><span class="p">:</span><span class="s2">"37203"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"phone"</span><span class="p">:</span><span class="s2">"+1 615-340-9333"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"email"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"website"</span><span class="p">:</span><span class="s2">"http://www.huttonhotel.com/"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"added_by"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2013-11-13T03:03:44.159Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="s2">"2014-11-14T20:27:50.021Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lat"</span><span class="p">:</span><span class="s2">"36.15287"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lng"</span><span class="p">:</span><span class="s2">"-86.797082"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"airports"</span><span class="p">:</span><span class="s2">"Nashville International Airport,Smyrna/Rutherford County Airport Authority,MBT,"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"train_station"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"photos_count"</span><span class="p">:</span><span class="mi">18</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"continent_id"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"saves_count"</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"featured"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"most_pop_photo_id"</span><span class="p">:</span><span class="mi">644</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"neighborhood"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"summary"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"_links"</span><span class="p">:{</span><span class="w">
+      </span><span class="s2">"self"</span><span class="p">:</span><span class="s2">"/api/plan_places/658"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"tip"</span><span class="p">:</span><span class="s2">"/api/tips?plan_place=658"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"photo"</span><span class="p">:</span><span class="s2">"/api/photos/644"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"tip"</span><span class="p">:{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">224</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"user_id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"place_id"</span><span class="p">:</span><span class="mi">101</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"plan_place_id"</span><span class="p">:</span><span class="mi">658</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"content"</span><span class="p">:</span><span class="s2">"Admin tip"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2014-01-22T21:34:50.076Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="s2">"2014-01-22T21:35:09.196Z"</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="err">:</span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/photos/644"</span><span class="p">},</span><span class="w">
+        </span><span class="s2">"place"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/places/101"</span><span class="p">},</span><span class="w">
+        </span><span class="s2">"plan_place"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/plan_places/658"</span><span class="p">},</span><span class="w">
+        </span><span class="s2">"user"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/users/1"</span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"photo"</span><span class="p">:{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">644</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"place_id"</span><span class="p">:</span><span class="mi">101</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"src"</span><span class="p">:</span><span class="s2">"/assets/plans/644/medium/Hutton_2BHotel.?1395708306"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"source"</span><span class="p">:</span><span class="s2">"Google"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"added_by"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"alt"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/photos/644"</span><span class="p">},</span><span class="w">
+        </span><span class="s2">"place"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/places/101"</span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">452</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"plan_id"</span><span class="p">:</span><span class="mi">202</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sortable_type"</span><span class="p">:</span><span class="s2">"TransportLeg"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sortable_id"</span><span class="p">:</span><span class="mi">195</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"position"</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"day"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"time"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"nights"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"chosen_category"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"note"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"is_private"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cost"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cost_multiplier"</span><span class="p">:</span><span class="s2">"total"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"currency"</span><span class="p">:</span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"est_price_cents"</span><span class="p">:</span><span class="mi">5000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"est_price_currency"</span><span class="p">:</span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"booked"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"start_img"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2013-11-25T19:08:56.456Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="s2">"2014-05-12T20:24:04.528Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"item"</span><span class="p">:{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">195</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"plan_id"</span><span class="p">:</span><span class="mi">202</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"transport_type"</span><span class="p">:</span><span class="s2">"car"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"origin_code"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"origin_address"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"origin_city"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"dest_code"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"dest_address"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"dest_city"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"provider"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"duration"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"price"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"month"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"dep_date"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"arrive_date"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"dep_time"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"arrive_time"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"link_to_book"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"booked"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2013-11-25T19:08:56.392Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="s2">"2013-11-25T19:08:56.392Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"currency"</span><span class="p">:</span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"dep_timezone"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"dep_utc_offset"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"arrive_timezone"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"arrive_utc_offset"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"tip_id"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"photo_id"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+  </span><span class="p">},{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">431</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"plan_id"</span><span class="p">:</span><span class="mi">202</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sortable_type"</span><span class="p">:</span><span class="s2">"Note"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sortable_id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"position"</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"day"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"time"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"nights"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"chosen_category"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"note"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"is_private"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cost"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cost_multiplier"</span><span class="p">:</span><span class="s2">"total"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"currency"</span><span class="p">:</span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"est_price_cents"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"est_price_currency"</span><span class="p">:</span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"booked"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"start_img"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2013-11-22T03:30:25.551Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="s2">"2013-11-22T03:30:25.551Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"item"</span><span class="p">:{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="s2">"Visit Museums"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"content"</span><span class="p">:</span><span class="s2">"Head to the Louvre, checking out the street vendors along the Seine on the way"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"user_id"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"plan_id"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2013-11-22T03:30:25.520Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="s2">"2013-11-22T03:34:48.613Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"photo_file_name"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"photo_content_type"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"photo_file_size"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"photo_updated_at"</span><span class="p">:</span><span class="w">
+      </span><span class="kc">null</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"tip_id"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"photo_id"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoints retrieves all plan places (eg: items listed in plans).</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">GET https://travelenvy.com/api/plan_places</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>plan_places</td>
+<td>false</td>
+<td>A comma separated list of plan place ids with which to filter the results (ex: &ldquo;plan_places=48,201&rdquo;)</td>
+</tr>
+<tr>
+<td>plan</td>
+<td>false</td>
+<td>An id for a specific plan for which to pull plan places</td>
+</tr>
+<tr>
+<td>type</td>
+<td>false</td>
+<td>Filters result set by object type.  Valid options are &ldquo;Place&rdquo;, &ldquo;TransportLeg&rdquo;, and &ldquo;Note&rdquo;</td>
+</tr>
+<tr>
+<td>place</td>
+<td>false</td>
+<td>An id for a specific place to get which plans it is feauted in.  Returns both the plan_place and plan objects</td>
+</tr>
+</tbody></table>
+<h3 id='json-response'>JSON response</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>PlanPlace ID</td>
+</tr>
+<tr>
+<td>plan_id</td>
+<td>Plan ID</td>
+</tr>
+<tr>
+<td>sortable_type</td>
+<td>type of plan_place object can be &ldquo;Place&rdquo;, &ldquo;TransportLeg&rdquo;, or &ldquo;Note&rdquo;</td>
+</tr>
+<tr>
+<td>sortable_id</td>
+<td>id of the plan_place object</td>
+</tr>
+<tr>
+<td>position</td>
+<td>position within the day that of this plan_place</td>
+</tr>
+<tr>
+<td>day</td>
+<td>day in which this plan_place appears</td>
+</tr>
+<tr>
+<td>time</td>
+<td>start time associated with this plan_place</td>
+</tr>
+<tr>
+<td>nights</td>
+<td>number of nights spent at this plan_place (only applicable for sortable_type=&ldquo;Place&rdquo; with place category of &ldquo;lodging&rdquo;)</td>
+</tr>
+<tr>
+<td>chosen_category</td>
+<td>category of the plan_place.  Only applicable for sortable_type=&ldquo;Place&rdquo;.  Defaults to place&rsquo;s category (lodging, restaurant, etc.  See place section)</td>
+</tr>
+<tr>
+<td>description</td>
+<td>Short lead-in text describing what doing at the Place.  Only applicable for sortable_type=&ldquo;Place&rdquo;.  Ex: &ldquo;Eat at&rdquo;.</td>
+</tr>
+<tr>
+<td>is_private</td>
+<td>boolean whether or not this plan_place is marked as private (ie only travelers on this plan can see it).</td>
+</tr>
+<tr>
+<td>cost</td>
+<td>actual cost of plan_place (cost will be estimated otherwise)</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>actual cost currency</td>
+</tr>
+<tr>
+<td>cost_multiplier</td>
+<td>&ldquo;total&rdquo;, &ldquo;per person&rdquo;, or &ldquo;per night&rdquo;.  Defaults based on sortable_type if has not been set.</td>
+</tr>
+<tr>
+<td>est_price_cents</td>
+<td>estimated price of this plan_place (comes from aggregated Place data and other estimates)</td>
+</tr>
+<tr>
+<td>est_price_currency</td>
+<td>estimated price currency (from aggregated data)</td>
+</tr>
+<tr>
+<td>booked</td>
+<td>boolean, whether owner of plan has booked this plan_place</td>
+</tr>
+<tr>
+<td>start_img</td>
+<td>ID of photo to use for this plan_place</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>datetime plan_place was created</td>
+</tr>
+<tr>
+<td>updated_at</td>
+<td>datetime plan_place was last updated</td>
+</tr>
+<tr>
+<td>item[ ]</td>
+<td>array of item attributes.  See Place, TransportLeg and Note parameters for reference.</td>
+</tr>
+<tr>
+<td>_links[ ]</td>
+<td>array of associated items.  Here includes links to associated: Tip, Photo</td>
+</tr>
+<tr>
+<td>tip[ ]</td>
+<td>array of the associated tip attributes.  See Tip section for details</td>
+</tr>
+<tr>
+<td>photo[ ]</td>
+<td>array of the associated photo attributes.  See Photo section for details</td>
+</tr>
+</tbody></table>
+<h2 id='get-a-specific-plan-item-aka-a-plan_place'>Get a Specific Plan Item (aka a plan_place)</h2>
+<p>This endpoint retrieves a specific plan place (ie item within a plan).</p>
+
+<p><aside class="warning">If you&rsquo;re not using an administrator API key, note that some plan places will return 403 Forbidden if they are private to admins or the plan&rsquo;s owners and travelers only.</aside></p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">GET https://travelenvy.com/api/plan_places/&lt;ID&gt;</code></p>
+<h2 id='add-an-item-to-a-plan-aka-creating-a-plan_place'>Add an Item to a Plan (aka creating a plan_place)</h2>
+<p>You can add a Place, TransportLeg or Note to a Plan.  See the following sections for specifics on creating each.</p>
+<h2 id='add-a-place-to-a-plan'>Add a Place to a Plan</h2>
+<p>To add a place to a plan, create a plan_place as shown in Create a Plan Item with sortable_type=&ldquo;Place&rdquo;.  Make sure to provide either sortable_id (which can be a TravelEnvy ID or Google Places reference ID) OR sortable_name.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">POST https://travelenvy.com/api/plan_places</code></p>
+<h3 id='attributes'>Attributes</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>plan_place[sortable_type]</td>
+<td>true</td>
+<td>set to &ldquo;Place&rdquo; to add a place</td>
+</tr>
+<tr>
+<td>plan_place[sortable_id]</td>
+<td>false</td>
+<td>provide the travelenvy ID or Google reference code of the place, or just provide the name below if not yet on TravelEvny and no google place ID found.</td>
+</tr>
+<tr>
+<td>sortable_name</td>
+<td>false</td>
+<td>The stringified name of the place to be added.  Will be used to create a new Place on TravelEnvy if no Place ID given.  Either this or sortable_id are required to correctly add a Place to a Plan.</td>
+</tr>
+<tr>
+<td>plan_place[day]</td>
+<td>false</td>
+<td>The day number (1&hellip;n) to which this item should be added. If &gt; plan&rsquo;s days, plan&rsquo;s day count increases to this value.  If nil, item is added to the &ldquo;options to consider&rdquo; for the plan</td>
+</tr>
+<tr>
+<td>plan_place[position]</td>
+<td>false</td>
+<td>The position (1&hellip;n) within the plan day that this item should appear.  If left blank, item will be added to the end of the day.</td>
+</tr>
+<tr>
+<td>plan_place[time]</td>
+<td>false</td>
+<td>Time at which to add the item</td>
+</tr>
+<tr>
+<td>plan_place[description]</td>
+<td>false</td>
+<td>Brief lead-in description for the item, which when displayed will be followed by the place name.  For example, &ldquo;Eat at&rdquo;.</td>
+</tr>
+<tr>
+<td>plan_place[booked]</td>
+<td>false</td>
+<td>whether the plan owner has booked this item yet</td>
+</tr>
+<tr>
+<td>plan_place[cost]</td>
+<td>false</td>
+<td>the actual cost associated with this item</td>
+</tr>
+<tr>
+<td>plan_place[cost_multiplier]</td>
+<td>false</td>
+<td>How to tally this cost.  Valid values are &ldquo;total&rdquo;, &ldquo;per night&rdquo;, and &ldquo;per person&rdquo;.  If not provide, default is based on the place&rsquo;s type &amp; category (for example, a Place of category &ldquo;lodging&rdquo; defaults to &ldquo;per night&rdquo;, while a &ldquo;restaurant&rdquo; defaults to &ldquo;per person&rdquo;)</td>
+</tr>
+<tr>
+<td>plan_place[start_img]</td>
+<td>false</td>
+<td>The ID of the photo to show for this place.  If nil, a default photo will be chosen</td>
+</tr>
+<tr>
+<td>plan_place[chosen_category]</td>
+<td>false</td>
+<td>If the item is a Place, the user can change its categorization (for instance if the Place is &ldquo;lodging&rdquo; but within the plan the user is going for drinks, category can be set to &ldquo;bar&rdquo; for this plan item)</td>
+</tr>
+<tr>
+<td>plan_place[nights]</td>
+<td>false</td>
+<td>Number of nights staying.  This is only used when chosen_category is &ldquo;lodging&rdquo;.</td>
+</tr>
+<tr>
+<td>plan_place[private]</td>
+<td>false</td>
+<td>Boolean that determines whether users not traveling on this plan can see this item.  Default is false (publicly viewable)</td>
+</tr>
+<tr>
+<td>closest</td>
+<td>false</td>
+<td>ID of the plan_place to insert this item after.  Use instead of the &ldquo;position&rdquo; parameter if easier (ex: in drag and drop sorting).</td>
+</tr>
+<tr>
+<td>plan_place[tip][content]</td>
+<td>false</td>
+<td>New tip that should be created for this item and shown in this plan.  Will also show on corresponding Place&rsquo;s page.</td>
+</tr>
+</tbody></table>
+
+<p><aside class="notice">See &ldquo;Adding an Item to a Plan&rdquo; for all additional parameter options.  Note: Users can only create plan_places for plans which they are an editor.  </aside></p>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Status Code</th>
+<th>Case</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>201</td>
+<td>Successfully created</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Unauthorized: current user is not an editor of this plan</td>
+</tr>
+</tbody></table>
+<h2 id='adding-a-transportation-leg-to-a-plan'>Adding a Transportation Leg to a Plan</h2>
+<p>{&ldquo;transport_legs&rdquo;:[
+  {
+    &ldquo;id&rdquo;:195,
+    &ldquo;plan_id&rdquo;:202,
+    &ldquo;transport_type&rdquo;:&ldquo;car&rdquo;,
+    &ldquo;origin_code&rdquo;:null,
+    &ldquo;origin_address&rdquo;:null,
+    &ldquo;origin_city&rdquo;:null,
+    &ldquo;dest_code&rdquo;:null,
+    &ldquo;dest_address&rdquo;:null,
+    &ldquo;dest_city&rdquo;:null,
+    &ldquo;provider&rdquo;:null,
+    &ldquo;duration&rdquo;:null,
+    &ldquo;price&rdquo;:null,
+    &ldquo;month&rdquo;:null,
+    &ldquo;dep_date&rdquo;:null,
+    &ldquo;arrive_date&rdquo;:null,
+    &ldquo;dep_time&rdquo;:null,
+    &ldquo;arrive_time&rdquo;:null,
+    &ldquo;link_to_book&rdquo;:null,
+    &ldquo;booked&rdquo;:null,
+    &ldquo;created_at&rdquo;:&ldquo;2013-11-25T19:08:56.392Z&rdquo;,
+    &ldquo;updated_at&rdquo;:&ldquo;2013-11-25T19:08:56.392Z&rdquo;,
+    &ldquo;currency&rdquo;:&ldquo;USD&rdquo;,
+    &ldquo;dep_timezone&rdquo;:null,
+    &ldquo;dep_utc_offset&rdquo;:null,
+    &ldquo;arrive_timezone&rdquo;:null,
+    &ldquo;arrive_utc_offset&rdquo;:null
+  }
+]}</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">POST https://travelenvy.com/api/plan_places</code></p>
+<h3 id='attributes'>Attributes</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>plan_place[sortable_type]</td>
+<td>true</td>
+<td>set to &ldquo;TransportLeg&rdquo; to add a transportation leg</td>
+</tr>
+<tr>
+<td>plan_place[sortable_id]</td>
+<td>false</td>
+<td>provide the ID of the transport_leg (it must have previously been created, see &ldquo;Creating a TransportLeg&rdquo;)</td>
+</tr>
+<tr>
+<td>plan_place[day]</td>
+<td>false</td>
+<td>The day number (1&hellip;n) to which this item should be added. If &gt; plan&rsquo;s days, plan&rsquo;s day count increases to this value.  If nil, item is added to the &ldquo;options to consider&rdquo; for the plan</td>
+</tr>
+<tr>
+<td>plan_place[position]</td>
+<td>false</td>
+<td>The position (1&hellip;n) within the plan day that this item should appear.  If left blank, item will be added to the end of the day.</td>
+</tr>
+<tr>
+<td>plan_place[time]</td>
+<td>false</td>
+<td>Time at which to add the item</td>
+</tr>
+<tr>
+<td>plan_place[description]</td>
+<td>false</td>
+<td>Brief lead-in description for the item, which when displayed will be followed by the place name.  For example, &ldquo;Eat at&rdquo;.</td>
+</tr>
+<tr>
+<td>plan_place[booked]</td>
+<td>false</td>
+<td>whether the plan owner has booked this item yet</td>
+</tr>
+<tr>
+<td>plan_place[cost]</td>
+<td>false</td>
+<td>the actual cost associated with this item</td>
+</tr>
+<tr>
+<td>plan_place[cost_multiplier]</td>
+<td>false</td>
+<td>How to tally this cost.  Valid values are &ldquo;total&rdquo;, &ldquo;per night&rdquo;, and &ldquo;per person&rdquo;.  If not provide, default is &ldquo;per person&rdquo; for tranaportation legs</td>
+</tr>
+<tr>
+<td>plan_place[private]</td>
+<td>false</td>
+<td>Boolean that determines whether users not traveling on this plan can see this item.  Default is false (publicly viewable)</td>
+</tr>
+<tr>
+<td>closest</td>
+<td>false</td>
+<td>ID of the plan_place to insert this item after.  Use instead of the &ldquo;position&rdquo; parameter if easier (ex: in drag and drop sorting).</td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Status Code</th>
+<th>Case</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>201</td>
+<td>Successfully created</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Unauthorized: current user is not an editor of this plan</td>
+</tr>
+</tbody></table>
+<h2 id='adding-a-note-to-a-plan'>Adding a Note to a Plan</h2>
+<p>{&ldquo;notes&rdquo;:[
+  {
+    &ldquo;id&rdquo;:1,
+    &ldquo;title&rdquo;:&ldquo;Visit Museums&rdquo;,
+    &ldquo;content&rdquo;:&ldquo;Head to the Louvre, checking out the street vendors along the Seine on the way&rdquo;,
+    &ldquo;user_id&rdquo;:null,
+    &ldquo;plan_id&rdquo;:null,
+    &ldquo;created_at&rdquo;:&ldquo;2013-11-22T03:30:25.520Z&rdquo;,
+    &ldquo;updated_at&rdquo;:&ldquo;2013-11-22T03:34:48.613Z&rdquo;,
+    &ldquo;photo_file_name&rdquo;:null,
+    &ldquo;photo_content_type&rdquo;:null,
+    &ldquo;photo_file_size&rdquo;:null,
+    &ldquo;photo_updated_at&rdquo;:null
+  }
+]}</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">POST https://travelenvy.com/api/plan_places</code></p>
+<h3 id='attributes'>Attributes</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>plan_place[sortable_type]</td>
+<td>true</td>
+<td>set to &ldquo;Note&rdquo; to add a note</td>
+</tr>
+<tr>
+<td>plan_place[sortable_id]</td>
+<td>false</td>
+<td>provide the ID of the note object to be added (it must have previously been created, see &ldquo;Creating a Note&rdquo;)</td>
+</tr>
+<tr>
+<td>plan_place[day]</td>
+<td>false</td>
+<td>The day number (1&hellip;n) to which this item should be added. If &gt; plan&rsquo;s days, plan&rsquo;s day count increases to this value.  If nil, item is added to the &ldquo;options to consider&rdquo; for the plan</td>
+</tr>
+<tr>
+<td>plan_place[position]</td>
+<td>false</td>
+<td>The position (1&hellip;n) within the plan day that this item should appear.  If left blank, item will be added to the end of the day.</td>
+</tr>
+<tr>
+<td>plan_place[time]</td>
+<td>false</td>
+<td>Time at which to add the item</td>
+</tr>
+<tr>
+<td>plan_place[description]</td>
+<td>false</td>
+<td>Brief lead-in description for the item, which when displayed will be followed by the place name.  For example, &ldquo;Eat at&rdquo;.</td>
+</tr>
+<tr>
+<td>plan_place[booked]</td>
+<td>false</td>
+<td>whether the plan owner has booked this item yet</td>
+</tr>
+<tr>
+<td>plan_place[cost]</td>
+<td>false</td>
+<td>the actual cost associated with this item</td>
+</tr>
+<tr>
+<td>plan_place[cost_multiplier]</td>
+<td>false</td>
+<td>How to tally this cost.  Valid values are &ldquo;total&rdquo;, &ldquo;per night&rdquo;, and &ldquo;per person&rdquo;.  If not provide, default is based on the place&rsquo;s type &amp; category (for example, a Place of category &ldquo;lodging&rdquo; defaults to &ldquo;per night&rdquo;, while a &ldquo;restaurant&rdquo; defaults to &ldquo;per person&rdquo;)</td>
+</tr>
+<tr>
+<td>plan_place[private]</td>
+<td>false</td>
+<td>Boolean that determines whether users not traveling on this plan can see this item.  Default is false (publicly viewable)</td>
+</tr>
+<tr>
+<td>closest</td>
+<td>false</td>
+<td>ID of the plan_place to insert this item after.  Use instead of the &ldquo;position&rdquo; parameter if easier (ex: in drag and drop sorting).</td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Status Code</th>
+<th>Case</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>201</td>
+<td>Successfully created</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Unauthorized: current user is not an editor of this plan</td>
+</tr>
+</tbody></table>
+<h2 id='delete-an-item-from-a-plan-aka-deleting-a-plan_place'>Delete an Item from a Plan (aka deleting a plan_place)</h2><h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">DELETE https://travelenvy.com/api/plan_places/&lt;ID&gt;</code></p>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Status Code</th>
+<th>Case</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>204</td>
+<td>Successfully deleted</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Unauthorized: current user is not an editor of this plan</td>
+</tr>
+</tbody></table>
+
+          <h1 id='relationships'>Relationships</h1><h2 id='get-all-relationships'>Get all Relationships</h2><pre><code class="highlight shell"></code></pre>
+<pre><code class="highlight ruby"></code></pre>
+<pre><code class="highlight json"><span class="p">{</span><span class="w"> </span><span class="err">relationships</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"follower_id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"followed_id"</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2013-10-07T18:09:10.533Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="s2">"2013-10-07T18:09:10.533Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"follower_name"</span><span class="p">:</span><span class="s2">"Scottie Ryan"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"followed_name"</span><span class="p">:</span><span class="s2">"Mackenzie Willms"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"_links"</span><span class="p">:{</span><span class="w">
+      </span><span class="s2">"self"</span><span class="p">:</span><span class="s2">"/api/relationships/2"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"follower"</span><span class="p">:</span><span class="s2">"/api/users?user=2"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"followed"</span><span class="p">:</span><span class="s2">"/api/users?user=2"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"follower_id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"followed_id"</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2013-10-07T18:09:10.535Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="s2">"2013-10-07T18:09:10.535Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"follower_name"</span><span class="p">:</span><span class="s2">"Scottie Ryan"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"followed_name"</span><span class="p">:</span><span class="s2">"Brian Cummings"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"_links"</span><span class="p">:{</span><span class="w">
+      </span><span class="s2">"self"</span><span class="p">:</span><span class="s2">"/api/relationships/3"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"follower"</span><span class="p">:</span><span class="s2">"/api/users?user=3"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"followed"</span><span class="p">:</span><span class="s2">"/api/users?user=3"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint returns all relationships (user who are following other users)</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">GET https://travelenvy.com/api/relationships</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>relationships</td>
+<td>false</td>
+<td>A comma separated list of relationship ids by which to filter.  If not present, returns all relationships.</td>
+</tr>
+<tr>
+<td>follower</td>
+<td>false</td>
+<td>Filters relationships by the given user id.  Returns relationships where the given user id is the follower</td>
+</tr>
+<tr>
+<td>followed</td>
+<td>false</td>
+<td>Filters relationships by the given user id.  Returns relationships where the given user id is the followed user</td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Relationship ID</td>
+</tr>
+<tr>
+<td>follower_id</td>
+<td>ID of the user following</td>
+</tr>
+<tr>
+<td>followed_id</td>
+<td>ID of the user being followed</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>datetime relationship created</td>
+</tr>
+<tr>
+<td>updated_at</td>
+<td>datetime relationship last updated</td>
+</tr>
+<tr>
+<td>follower_name</td>
+<td>Name of the user following</td>
+</tr>
+<tr>
+<td>followed_name</td>
+<td>Name of the user being followed</td>
+</tr>
+<tr>
+<td>_links</td>
+<td>array of hrefs that point to associated objects (here: &ldquo;self&rdquo; relationship object, &ldquo;follower&rdquo; user object, &ldquo;followed&rdquo; user object)</td>
+</tr>
+</tbody></table>
+<h2 id='get-a-specific-relationship'>Get a specific Relationship</h2><h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">GET https://travelenvy.com/api/relationships/2</code></p>
+<h3 id='response'>Response</h3>
+<p>Same as above when requesting all relationships</p>
+<h2 id='create-a-relationship'>Create a Relationship</h2>
+<p>The endpoint to create a new relationship</p>
+
+<p><aside class="notice">Users can only create relationships where they are the follower.  The follower_id is set automatically based on the current_user token. </aside></p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">POST https://travelenvy.com/api/relationships</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>followed_id</td>
+<td>true</td>
+<td>The user id of the user to follow</td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Status Code</th>
+<th>Case</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>201</td>
+<td>Successfully created</td>
+</tr>
+</tbody></table>
+<h2 id='destroy-a-relationship'>Destroy a Relationship</h2>
+<p>The endpoint to destroy a specific relationship</p>
+
+<p><aside class="warning">Only admins and users who are the follower in a relationship can destroy it.</aside></p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">DELETE https://travelenvy.com/api/relationships/2</code></p>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Status Code</th>
+<th>Case</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>403</td>
+<td>User is not authorized (the user is not the follower or an admin)</td>
+</tr>
+<tr>
+<td>204</td>
+<td>Successfully deleted</td>
 </tr>
 </tbody></table>
 
@@ -249,7 +1676,6 @@ Remember — a happy kitten is an authenticated kitten!
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
                 <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
           </div>
       </div>
     </div>
