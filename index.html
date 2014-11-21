@@ -54,7 +54,7 @@
 <blockquote>
 <p>To authorize, use this code:</p>
 </blockquote>
-<pre><code class="highlight shell">    curl --data <span class="s2">"email=[email]&amp;password=[password]"</span> https://travelenvy.com/api/sessions
+<pre><code class="highlight shell">curl --data <span class="s2">"email=[email]&amp;password=[password]"</span> https://travelenvy.com/api/sessions
 </code></pre>
 <pre><code class="highlight ruby"><span class="c1">#In your ruby console:</span>
 <span class="nb">require</span> <span class="s1">'oauth2'</span>
@@ -163,9 +163,44 @@ You must email us at hello@travelenvy.com to register your API, in order to be g
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<pre><code class="highlight json"><span class="p">[</span><span class="w">
-
-</span><span class="p">]</span><span class="w">
+<pre><code class="highlight json"><span class="p">{</span><span class="s2">"users"</span><span class="p">:[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">108</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"Helen Amgdighggcag"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"blurb"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"gender"</span><span class="p">:</span><span class="s2">"female"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"location"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"latitude"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"longitude"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"followers_count"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"followed_users_count"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"saved_places_count"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"saved_plans_count"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"invitation_limit"</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2014-01-10T05:34:04.055Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="s2">"2014-04-08T02:49:46.485Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"profile_img"</span><span class="p">:</span><span class="s2">"/tmp/assets/users/108/original/picture.?1396925385"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"_links"</span><span class="p">:{</span><span class="w">
+            </span><span class="s2">"self"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/users/108"</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"notification_settings"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/source_urls?place=108"</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"saved_places"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/saved_places?user=108"</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"saved_plans"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/saved_plans?user=108"</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"tips"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/tips?user=108"</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"reservations"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/reservations?user=108"</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"tops_lists"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/tops_lists?user=108"</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"followed_users"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/relationships?follower=108"</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"followers"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/relationships?followed=108"</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"traveling_plans"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/travelers?user=108"</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"plans_as_owner"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/travelers?user=108\u0026owner=true"</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"plans_as_editor"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/travelers?user=108\u0026editor=true"</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"plans_as_viewer"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/travelers?user=108\u0026editor=false"</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"places_been"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/saved_places?user=108\u0026been=true"</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"places_approved"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/saved_places?user=108\u0026approve=true"</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"places_disapproved"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/saved_places?user=108\u0026approve=false"</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"places_want_to_go"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/saved_places?user=108\u0026been=false"</span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">]}</span><span class="w">
 </span></code></pre>
 
 <p>This endpoint retrieves all users.</p>
@@ -228,6 +263,58 @@ You must email us at hello@travelenvy.com to register your API, in order to be g
 <td>The ID of the user to retrieve</td>
 </tr>
 </tbody></table>
+<h2 id='create-user'>Create User</h2><pre><code class="highlight shell">curl --data <span class="s2">"user[name]=new%20User&amp;user[email]=example@example.com&amp;user[password]=password&amp;user[password_confirmation]=password&amp;user[invitation_token]=038239529075"</span> https://travelenvy.com/api/tips/1215?access_token<span class="o">=</span>your_token
+</code></pre>
+<pre><code class="highlight ruby"> <span class="n">access</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s2">"/api/users?user[name]=new%20User&amp;user[email]=example@example.com&amp;user[password]=password&amp;user[password_confirmation]=password&amp;user[invitation_token]=038239529075"</span><span class="p">).</span><span class="nf">parsed</span>
+</code></pre>
+
+<p>This endpoint creates a new user.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">GET https://travelenvy.com/api/users?&lt;PARAMS&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>The name (first &amp; last) of the new user</td>
+</tr>
+<tr>
+<td>email</td>
+<td>A valid email address for the user</td>
+</tr>
+<tr>
+<td>password</td>
+<td>min 6 characters</td>
+</tr>
+<tr>
+<td>password_confirmation</td>
+<td>re-entered password</td>
+</tr>
+<tr>
+<td>invitation_token</td>
+<td>the invitation token for the user, appended to their invitation link sent via email</td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>201</td>
+<td>Successfully created</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Unauthorized: user is already signed in and is not an admin</td>
+</tr>
+</tbody></table>
 
           <h1 id='places'>Places</h1><h2 id='get-all-places'>Get All Places</h2><pre><code class="highlight ruby"><span class="n">access</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"/api/places"</span><span class="p">).</span><span class="nf">parsed</span>
 
@@ -241,40 +328,6 @@ curl "http://travelenvy.com/api/places"
 </blockquote>
 <pre><code class="highlight json"><span class="p">{</span><span class="s2">"places"</span><span class="err">=&gt;[</span><span class="w">
   </span><span class="err">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="err">=&gt;401,</span><span class="w"> 
-    </span><span class="s2">"added_by"</span><span class="err">=&gt;1,</span><span class="w"> 
-    </span><span class="s2">"name"</span><span class="err">=&gt;</span><span class="s2">"The London EDITION"</span><span class="err">,</span><span class="w"> 
-    </span><span class="s2">"summary"</span><span class="err">=&gt;</span><span class="s2">"New hotspot hotel on the edge of London's SoHo neighborhood"</span><span class="err">,</span><span class="w"> 
-    </span><span class="s2">"category"</span><span class="err">=&gt;</span><span class="s2">"lodging"</span><span class="err">,</span><span class="w"> 
-    </span><span class="s2">"address"</span><span class="err">=&gt;</span><span class="s2">"10 Berners Street, London, United Kingdom"</span><span class="err">,</span><span class="w"> 
-    </span><span class="s2">"city_state"</span><span class="err">=&gt;</span><span class="s2">"London"</span><span class="err">,</span><span class="w"> 
-    </span><span class="s2">"country"</span><span class="err">=&gt;</span><span class="s2">"gb"</span><span class="err">,</span><span class="w"> 
-    </span><span class="s2">"zip"</span><span class="err">=&gt;nil,</span><span class="w"> 
-    </span><span class="s2">"neighborhood"</span><span class="err">=&gt;</span><span class="s2">"SoHo"</span><span class="err">,</span><span class="w"> 
-    </span><span class="s2">"lat"</span><span class="err">=&gt;</span><span class="s2">"51.516773"</span><span class="err">,</span><span class="w"> 
-    </span><span class="s2">"lng"</span><span class="err">=&gt;</span><span class="s2">"-0.136334"</span><span class="err">,</span><span class="w"> 
-    </span><span class="s2">"email"</span><span class="err">=&gt;nil,</span><span class="w"> 
-    </span><span class="s2">"phone"</span><span class="err">=&gt;</span><span class="s2">"+44 20 7781 0000"</span><span class="err">,</span><span class="w"> 
-    </span><span class="s2">"website"</span><span class="err">=&gt;</span><span class="s2">"http://www.edition-hotels.marriott.com/london"</span><span class="err">,</span><span class="w"> 
-    </span><span class="s2">"price"</span><span class="err">=&gt;</span><span class="s2">"477.00"</span><span class="err">,</span><span class="w">
-    </span><span class="s2">"currency"</span><span class="err">=&gt;</span><span class="s2">"USD"</span><span class="err">,</span><span class="w"> 
-    </span><span class="s2">"airports"</span><span class="err">=&gt;</span><span class="s2">"Gatwick Airport,Stansted Airport,London Luton Airport,"</span><span class="err">,</span><span class="w"> 
-    </span><span class="s2">"saves_count"</span><span class="err">=&gt;1,</span><span class="w"> 
-    </span><span class="s2">"photos_count"</span><span class="err">=&gt;10,</span><span class="w"> 
-    </span><span class="s2">"continent_id"</span><span class="err">=&gt;6,</span><span class="w"> 
-    </span><span class="s2">"featured"</span><span class="err">=&gt;false,</span><span class="w"> 
-    </span><span class="s2">"created_at"</span><span class="err">=&gt;</span><span class="s2">"2014-06-27T03:39:36.165Z"</span><span class="err">,</span><span class="w"> 
-    </span><span class="s2">"updated_at"</span><span class="err">=&gt;</span><span class="s2">"2014-07-24T19:18:33.162Z"</span><span class="err">,</span><span class="w"> 
-    </span><span class="s2">"most_pop_photo_id"</span><span class="err">=&gt;2763,</span><span class="w"> 
-    </span><span class="s2">"main_photo_url"</span><span class="err">=&gt;</span><span class="s2">"/tmp/assets/photos/2763/original/520.?1403840443"</span><span class="err">,</span><span class="w"> 
-    </span><span class="s2">"saving_user_ids"</span><span class="err">=&gt;[1],</span><span class="w"> 
-    </span><span class="s2">"photo_ids"</span><span class="err">=&gt;[2763,</span><span class="w"> </span><span class="err">2762,</span><span class="w"> </span><span class="err">2761,</span><span class="w"> </span><span class="err">2760,</span><span class="w"> </span><span class="err">2759,</span><span class="w"> </span><span class="err">2758,</span><span class="w"> </span><span class="err">2757,</span><span class="w"> </span><span class="err">2756,</span><span class="w"> </span><span class="err">2755,</span><span class="w"> </span><span class="err">2754],</span><span class="w"> 
-    </span><span class="s2">"source_url_ids"</span><span class="err">=&gt;[],</span><span class="w"> 
-    </span><span class="s2">"plan_ids"</span><span class="err">=&gt;[255],</span><span class="w"> 
-    </span><span class="s2">"tops_list_ids"</span><span class="err">=&gt;[],</span><span class="w"> 
-    </span><span class="s2">"tip_ids"</span><span class="err">=&gt;[]</span><span class="w">
-  </span><span class="err">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
     </span><span class="s2">"id"</span><span class="err">=&gt;477,</span><span class="w"> 
     </span><span class="s2">"added_by"</span><span class="err">=&gt;1,</span><span class="w"> 
     </span><span class="s2">"name"</span><span class="err">=&gt;</span><span class="s2">"Bestia"</span><span class="err">,</span><span class="w"> 
@@ -311,7 +364,9 @@ curl "http://travelenvy.com/api/places"
         </span><span class="s2">"plans"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/plan_places?place=196"</span><span class="p">},</span><span class="w">
         </span><span class="s2">"tips"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/tips?place=196"</span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
-</span><span class="err">]</span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="err">,</span><span class="w">
+  </span><span class="err">...</span><span class="w">
+</span><span class="err">]}</span><span class="w">
 </span></code></pre>
 
 <p>This endpoints retrieves all places from the TravelEnvy database (ie lodging, restaurants, activities, sites, stores&hellip;).</p>
@@ -595,13 +650,70 @@ curl "http://travelenvy.com/api/places"
 <h3 id='query-parameters'>Query Parameters</h3><h3 id='response'>Response</h3><h2 id='delete-a-specific-place'>Delete a Specific Place</h2><h3 id='http-request'>HTTP Request</h3>
 <p><code class="prettyprint">DELETE https://travelenvy.com/api/places/&lt;id&gt;</code></p>
 <h3 id='query-parameters'>Query Parameters</h3><h3 id='response'>Response</h3>
-          <h1 id='plans'>Plans</h1><h2 id='get-all-plans'>Get all Plans</h2><pre><code class="highlight ruby"></code></pre>
-<pre><code class="highlight shell"></code></pre>
-<pre><code class="highlight json"></code></pre>
+          <h1 id='plans'>Plans</h1><h2 id='get-all-plans'>Get all Plans</h2>
+<blockquote>
+<p>To retrieve all plans, use the following code:</p>
+</blockquote>
+<pre><code class="highlight ruby"><span class="n">access</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"/api/plans"</span><span class="p">).</span><span class="nf">parsed</span>
+</code></pre>
+<pre><code class="highlight shell">curl https://travelenvy.com/api/plans?access_token<span class="o">=</span>your_token
+</code></pre>
+
+<blockquote>
+<p>The above code returns the following json:</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="s2">"plans"</span><span class="p">:[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">181</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"title"</span><span class="p">:</span><span class="s2">"Honeymoon in Kenya \u0026 the Seychelles"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"days"</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"summary"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"people"</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"countries"</span><span class="p">:</span><span class="s2">"Kenya \u0026 Usa"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"country_codes"</span><span class="p">:</span><span class="s2">"us gb"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"total_cost"</span><span class="p">:</span><span class="s2">"0.0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"saves_count"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"featured"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"publish"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sightseeing"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"food"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"romance"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"family"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"art_design"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"outdoors"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"partying"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"relaxing"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"shopping"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"big_group"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"event"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"music"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"hidden_gems"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"authentic_local"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2013-11-10T23:20:53.186Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="s2">"2014-11-15T18:43:07.672Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"start_date"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"end_date"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"start_loc"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"end_loc"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"creator_id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"cover_photo_url"</span><span class="p">:</span><span class="s2">"https://media-cache-ak0.pinimg.com/736x/d3/f9/5a/d3f95a8a7efede55cf4e0808403fa07b.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"stops"</span><span class="p">:{</span><span class="w">
+            </span><span class="s2">"0"</span><span class="p">:{</span><span class="s2">"city"</span><span class="p">:</span><span class="s2">"Santa Monica"</span><span class="p">,</span><span class="s2">"nights"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"_links"</span><span class="p">:{</span><span class="w">
+            </span><span class="s2">"self"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/plans/181"</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"saving_users"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/saved_plans?plan=181"</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"plan_places"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/plan_places?plan=181"</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"travelers"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/travelers?plan=181"</span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="err">{</span><span class="w">
+        </span><span class="err">...</span><span class="w">
+    </span><span class="err">}</span><span class="w">
+</span><span class="p">]}</span><span class="w">
+</span></code></pre>
 
 <p>This endpoint returns all plans (ie itineraries)</p>
 
-<p><aside class="warning">If you&rsquo;re not using an administrator API key, note that some plans will return 403 Forbidden if they are hidden for admins or their owners only.</aside></p>
+<p><aside class="warning">If you&rsquo;re not using an administrator API key, note that some plans will return 403 Forbidden if they are hidden for admins or their owners only.  If the user is not a traveler on the plan, certain private fields will also not be returned (start/end location, dates) </aside></p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code class="prettyprint">GET https://travelenvy.com/api/plans</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
@@ -767,20 +879,415 @@ curl "http://travelenvy.com/api/places"
 </tr>
 </tbody></table>
 <h2 id='get-a-specific-plan'>Get a Specific Plan</h2>
+<blockquote>
+<p>To retrieve a specific plans, use the following code:</p>
+</blockquote>
+<pre><code class="highlight ruby"><span class="n">access</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"/api/plans/183"</span><span class="p">).</span><span class="nf">parsed</span>
+</code></pre>
+<pre><code class="highlight shell">curl https://travelenvy.com/api/plans/183?access_token<span class="o">=</span>your_token
+</code></pre>
+
+<blockquote>
+<p>The above code returns the following json:</p>
+</blockquote>
+<pre><code class="highlight json"><span class="w">
+</span><span class="p">{</span><span class="s2">"plan"</span><span class="p">:{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">183</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"title"</span><span class="p">:</span><span class="s2">"Lorem ipsum"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"days"</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"summary"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"people"</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"countries"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"country_codes"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"total_cost"</span><span class="p">:</span><span class="s2">"0.0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"saves_count"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"featured"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"publish"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sightseeing"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"food"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"romance"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"family"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"art_design"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"outdoors"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"partying"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"relaxing"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"shopping"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"big_group"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"event"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"music"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"hidden_gems"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"authentic_local"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2014-11-21T01:04:28.087Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="s2">"2014-11-21T01:04:29.635Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"start_date"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"end_date"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"start_loc"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"end_loc"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"creator_id"</span><span class="p">:</span><span class="mi">499</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cover_photo_url"</span><span class="p">:</span><span class="s2">"http://media-cache-ak0.pinimg.com/236x/a6/01/d4/a601d41865bb1693e2633ebca49846a0.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"stops"</span><span class="p">:{},</span><span class="w">
+    </span><span class="s2">"_links"</span><span class="p">:{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/plans/183"</span><span class="p">},</span><span class="w">
+        </span><span class="s2">"saving_users"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/saved_plans?plan=183"</span><span class="p">},</span><span class="w">
+        </span><span class="s2">"plan_places"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/plan_places?plan=183"</span><span class="p">},</span><span class="w">
+        </span><span class="s2">"travelers"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/travelers?plan=183"</span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"travelers"</span><span class="p">:[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">79</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"user_id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"plan_id"</span><span class="p">:</span><span class="mi">183</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"can_edit"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"status"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2014-05-28T05:27:12.019Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="s2">"2014-10-21T19:43:12.036Z"</span><span class="w">
+            </span><span class="p">,</span><span class="s2">"owner"</span><span class="p">:</span><span class="kc">true</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"plan_places"</span><span class="p">:[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">358</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"plan_id"</span><span class="p">:</span><span class="mi">183</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"sortable_type"</span><span class="p">:</span><span class="s2">"TransportLeg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"sortable_id"</span><span class="p">:</span><span class="mi">143</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"position"</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"day"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"time"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"chosen_category"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"note"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"is_private"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"cost"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"cost_multiplier"</span><span class="p">:</span><span class="s2">"per person"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"currency"</span><span class="p">:</span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"est_price_cents"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"est_price_currency"</span><span class="p">:</span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"booked"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"start_img"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2013-11-15T00:07:39.530Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="s2">"2013-11-15T00:07:39.530Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"item"</span><span class="p">:{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">143</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"plan_id"</span><span class="p">:</span><span class="mi">183</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"transport_type"</span><span class="p">:</span><span class="s2">"flight"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"origin_code"</span><span class="p">:</span><span class="s2">"OCH"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"origin_address"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"origin_city"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"dest_code"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"dest_address"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"dest_city"</span><span class="p">:</span><span class="s2">"Miami Beach, FL"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"provider"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"duration"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"price"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"month"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"dep_date"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"arrive_date"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"dep_time"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"arrive_time"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"link_to_book"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"booked"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2013-11-15T00:07:39.510Z"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="s2">"2013-11-15T00:07:41.925Z"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"currency"</span><span class="p">:</span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"dep_timezone"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"dep_utc_offset"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"arrive_timezone"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"arrive_utc_offset"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"nights"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"_links"</span><span class="p">:{</span><span class="w">
+                </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">href</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/plan_places/358"</span><span class="w"> </span><span class="p">},</span><span class="w">
+                </span><span class="s2">"tip"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">href</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/tips?plan_place=358"</span><span class="w"> </span><span class="p">},</span><span class="w">
+                </span><span class="s2">"photo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">href</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/photos/"</span><span class="w"> </span><span class="p">}</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"tip"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"photo"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+        </span><span class="p">},{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">886</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"plan_id"</span><span class="p">:</span><span class="mi">183</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"sortable_type"</span><span class="p">:</span><span class="s2">"Place"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"sortable_id"</span><span class="p">:</span><span class="mi">270</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"position"</span><span class="p">:</span><span class="mi">48</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"day"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"time"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"chosen_category"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"note"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"is_private"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"cost"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"cost_multiplier"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"currency"</span><span class="p">:</span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"est_price_cents"</span><span class="p">:</span><span class="mi">5000</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"est_price_currency"</span><span class="p">:</span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"booked"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"start_img"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2014-04-07T16:12:52.275Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="s2">"2014-05-12T20:24:04.749Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"item"</span><span class="p">:{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">270</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"The Purple Pig"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"category"</span><span class="p">:</span><span class="s2">"restaurant"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"address"</span><span class="p">:</span><span class="s2">"500 N Michigan Ave, Chicago, IL, United States"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"city_state"</span><span class="p">:</span><span class="s2">"Chicago"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"country"</span><span class="p">:</span><span class="s2">"us"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"zip"</span><span class="p">:</span><span class="s2">"60608"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"phone"</span><span class="p">:</span><span class="s2">"+1 312-464-1744"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"email"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"website"</span><span class="p">:</span><span class="s2">"http://thepurplepigchicago.com/"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"added_by"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2014-03-28T23:48:47.813Z"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="s2">"2014-08-16T17:18:45.775Z"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"price"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"lat"</span><span class="p">:</span><span class="s2">"41.89111"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"lng"</span><span class="p">:</span><span class="s2">"-87.62447"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"airports"</span><span class="p">:</span><span class="s2">"CHI, MDW"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"train_station"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"photos_count"</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"continent_id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"saves_count"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"featured"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"most_pop_photo_id"</span><span class="p">:</span><span class="mi">1629</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"neighborhood"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"summary"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"nights"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"_links"</span><span class="p">:{</span><span class="w">
+                </span><span class="s2">"self"</span><span class="p">:</span><span class="s2">"/api/plan_places/886"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"tip"</span><span class="p">:</span><span class="s2">"/api/tips?plan_place=886"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"photo"</span><span class="p">:</span><span class="s2">"/api/photos/"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"tip"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"photo"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+
 <p>This endpoint retrieves a specific plan.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code class="prettyprint">GET https://travelenvy.com/api/plans/&lt;ID&gt;</code></p>
 
-<p><aside class="warning">If you&rsquo;re not using an administrator API key, note that some plans will return 403 Forbidden if they are hidden for admins or their owners only.</aside></p>
-<h2 id='update-a-specific-plan'>Update a Specific Plan</h2><h3 id='http-request'>HTTP Request</h3>
-<p><code class="prettyprint">PUT https://travelenvy.com/api/plans/&lt;id&gt;</code></p>
+<p><aside class="warning">If you&rsquo;re not using an administrator API key, note that some plans will return 403 Forbidden if they are hidden for admins or their owners only.  If the user is not a traveler on the plan, certain private fields will also not be returned (start/end location, dates) </aside></p>
+<h3 id='response'>Response</h3>
+<p>Same as the index &ldquo;Get all Plans&rdquo; response, with the addition of an array of travelers, and plan_places (grouped by day, ordered by position) and their corresponding items. </p>
+<h2 id='create-a-plan'>Create a Plan</h2>
+<blockquote>
+<p>To create a plans, use the following code:</p>
+</blockquote>
+<pre><code class="highlight ruby"><span class="n">access</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s2">"/api/plans?plan[title]=New%20Plan"</span><span class="p">).</span><span class="nf">parsed</span>
+</code></pre>
+<pre><code class="highlight shell">curl https://travelenvy.com/api/plans?plan[title]<span class="o">=</span>New%20Plan&amp;access_token<span class="o">=</span>your_token
+</code></pre>
+
+<p>This endpoint creates a new plan for the current user.</p>
+<h3 id='http-request'>HTTP Request</h3><h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>title</td>
+<td>true</td>
+<td>Title of the plan</td>
+</tr>
+<tr>
+<td>days</td>
+<td>false</td>
+<td>Number of days in the plan</td>
+</tr>
+<tr>
+<td>summary</td>
+<td>false</td>
+<td>brief description / summary of the plan</td>
+</tr>
+<tr>
+<td>people</td>
+<td>false</td>
+<td>Number of people traveling on the plan</td>
+</tr>
+<tr>
+<td>countries</td>
+<td>false</td>
+<td>countries visited in the plan</td>
+</tr>
+<tr>
+<td>start_date</td>
+<td>false</td>
+<td>(private) start date of the plan, private to travelers on the plan</td>
+</tr>
+<tr>
+<td>end_date</td>
+<td>false</td>
+<td>(private) end date of the plan, private to travelers on the plan</td>
+</tr>
+<tr>
+<td>start_location</td>
+<td>false</td>
+<td>(private) start location of the plan, private to travelers on the plan</td>
+</tr>
+<tr>
+<td>end_location</td>
+<td>false</td>
+<td>(private) end location of the plan, private to travelers on the plan</td>
+</tr>
+<tr>
+<td>cover_photo</td>
+<td>src of the main image for this plan.  Either use this or &ldquo;main_photo&rdquo; to upload</td>
+<td></td>
+</tr>
+<tr>
+<td>main_photo</td>
+<td>photo file to upload as the main image for this plan.  Either use this or &ldquo;cover_photo&rdquo;</td>
+<td></td>
+</tr>
+<tr>
+<td>sightseeing</td>
+<td>false</td>
+<td>boolean, if this plan focuses on sightseeing</td>
+</tr>
+<tr>
+<td>food</td>
+<td>false</td>
+<td>boolean, if this plan focuses on food</td>
+</tr>
+<tr>
+<td>romance</td>
+<td>false</td>
+<td>boolean, if this plan focuses on romance</td>
+</tr>
+<tr>
+<td>family</td>
+<td>false</td>
+<td>boolean, if this plan focuses family</td>
+</tr>
+<tr>
+<td>art_design</td>
+<td>false</td>
+<td>boolean, if this plan focuses on art and design</td>
+</tr>
+<tr>
+<td>outdoors</td>
+<td>false</td>
+<td>boolean, if this plan focuses on outdoors</td>
+</tr>
+<tr>
+<td>partying</td>
+<td>false</td>
+<td>boolean, if this plan focuses on partying</td>
+</tr>
+<tr>
+<td>relaxing</td>
+<td>false</td>
+<td>boolean, if this plan focuses on relaxing</td>
+</tr>
+<tr>
+<td>shopping</td>
+<td>false</td>
+<td>boolean, if this plan focuses on shopping</td>
+</tr>
+<tr>
+<td>big_group</td>
+<td>false</td>
+<td>boolean, if this plan is focused around a big group</td>
+</tr>
+<tr>
+<td>event</td>
+<td>false</td>
+<td>boolean, if this plan is focused around an event</td>
+</tr>
+<tr>
+<td>music</td>
+<td>false</td>
+<td>boolean, if this plan focuses on music</td>
+</tr>
+<tr>
+<td>hidden_gems</td>
+<td>false</td>
+<td>boolean, if this plan focuses on hidden gems</td>
+</tr>
+<tr>
+<td>authentic_local</td>
+<td>false</td>
+<td>boolean, if this plan focuses on authentic local spots</td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>201</td>
+<td>Successfully Created</td>
+</tr>
+</tbody></table>
+<h2 id='update-a-specific-plan'>Update a Specific Plan</h2>
+<blockquote>
+<p>To update a plans, use the following code:</p>
+</blockquote>
+<pre><code class="highlight ruby"><span class="n">access</span><span class="p">.</span><span class="nf">put</span><span class="p">(</span><span class="s2">"/api/plans/25?plan[title]=New%20Plan"</span><span class="p">).</span><span class="nf">parsed</span>
+</code></pre>
+<pre><code class="highlight shell">curl https://travelenvy.com/api/plans/25?plan[title]<span class="o">=</span>New%20Plan&amp;access_token<span class="o">=</span>your_token
+</code></pre>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">PUT https://travelenvy.com/api/plans/&lt;ID&gt;?&lt;PARAMS&gt;</code></p>
 
 <p><aside class="warning">If you&rsquo;re not using an administrator API key, note that this will return 403 Forbidden unless the current user is an editor of this plan.</aside></p>
-<h3 id='query-parameters'>Query Parameters</h3><h3 id='response'>Response</h3><h2 id='delete-a-specific-plan'>Delete a Specific Plan</h2><h3 id='http-request'>HTTP Request</h3>
-<p><code class="prettyprint">DELETE https://travelenvy.com/api/plans/&lt;id&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<p>Look at creating a plan to see what attributes can be updated.</p>
+
+<p><aside class="warning">Note that non-admin users can only update plans that they have edit permissions for. A NEW COPY OF THE PLAN IS CREATED and saved to the current_user if they update a plan for which they don&rsquo;t have edit rights. </aside></p>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>204</td>
+<td>Successfully updated</td>
+</tr>
+<tr>
+<td>201</td>
+<td>A new plan was successfully created, saved to the current user, and updated with the given params</td>
+</tr>
+</tbody></table>
+<h2 id='delete-a-specific-plan'>Delete a Specific Plan</h2>
+<blockquote>
+<p>To delete a plan, use the following code:</p>
+</blockquote>
+<pre><code class="highlight ruby"><span class="n">access</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="s2">"/api/plans/25"</span><span class="p">).</span><span class="nf">parsed</span>
+</code></pre>
+<pre><code class="highlight shell">curl -X DELETE https://travelenvy.com/api/plans/25?access_token<span class="o">=</span>your_token
+</code></pre>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">DELETE https://travelenvy.com/api/plans/&lt;ID&gt;</code></p>
 
 <p><aside class="warning">If you&rsquo;re not using an administrator API key, note that plans not owned by the current user will return 403 Forbidden.</aside></p>
-<h3 id='query-parameters'>Query Parameters</h3><h3 id='response'>Response</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>204</td>
+<td>Successfully deleted</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Unauthorized: the user did not create this plan and therefore cannot delete it</td>
+</tr>
+</tbody></table>
+
           <h1 id='plan-places'>Plan Places</h1><h2 id='get-a-list-of-plan-places'>Get a list of Plan Places</h2>
 <blockquote>
 <p>To Get a list of plan_places use the following code:</p>
@@ -1001,7 +1508,7 @@ curl "http://travelenvy.com/api/places"
 <td>An id for a specific place to get which plans it is feauted in.  Returns both the plan_place and plan objects</td>
 </tr>
 </tbody></table>
-<h3 id='json-response'>JSON response</h3>
+<h3 id='response'>Response</h3>
 <table><thead>
 <tr>
 <th>Attribute</th>
@@ -1116,8 +1623,8 @@ curl "http://travelenvy.com/api/places"
 <h2 id='add-a-place-to-a-plan'>Add a Place to a Plan</h2>
 <p>To add a place to a plan, create a plan_place as shown in Create a Plan Item with sortable_type=&ldquo;Place&rdquo;.  Make sure to provide either sortable_id (which can be a TravelEnvy ID or Google Places reference ID) OR sortable_name.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code class="prettyprint">POST https://travelenvy.com/api/plan_places</code></p>
-<h3 id='attributes'>Attributes</h3>
+<p><code class="prettyprint">POST https://travelenvy.com/api/plan_places?&lt;PARAMS&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1256,8 +1763,8 @@ curl "http://travelenvy.com/api/places"
   }
 ]}</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code class="prettyprint">POST https://travelenvy.com/api/plan_places</code></p>
-<h3 id='attributes'>Attributes</h3>
+<p><code class="prettyprint">POST https://travelenvy.com/api/plan_places?&lt;PARAMS&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1354,8 +1861,8 @@ curl "http://travelenvy.com/api/places"
   }
 ]}</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code class="prettyprint">POST https://travelenvy.com/api/plan_places</code></p>
-<h3 id='attributes'>Attributes</h3>
+<p><code class="prettyprint">POST https://travelenvy.com/api/plan_places?&lt;PARAMS&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1454,8 +1961,18 @@ curl "http://travelenvy.com/api/places"
 </tr>
 </tbody></table>
 
-          <h1 id='relationships'>Relationships</h1><h2 id='get-all-relationships'>Get all Relationships</h2><pre><code class="highlight shell"></code></pre>
-<pre><code class="highlight ruby"></code></pre>
+          <h1 id='relationships'>Relationships</h1><h2 id='get-all-relationships'>Get all Relationships</h2>
+<blockquote>
+<p>To retrieve all relationships, use the following code:</p>
+</blockquote>
+<pre><code class="highlight shell">  curl https://travelenvy.com/api/relationships?access_token<span class="o">=</span>your_token
+</code></pre>
+<pre><code class="highlight ruby"><span class="n">access</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"/api/relationships"</span><span class="p">).</span><span class="nf">parsed</span>
+</code></pre>
+
+<blockquote>
+<p>The above code returns the following json: </p>
+</blockquote>
 <pre><code class="highlight json"><span class="p">{</span><span class="w"> </span><span class="err">relationships</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="w">
@@ -1555,7 +2072,21 @@ curl "http://travelenvy.com/api/places"
 <td>array of hrefs that point to associated objects (here: &ldquo;self&rdquo; relationship object, &ldquo;follower&rdquo; user object, &ldquo;followed&rdquo; user object)</td>
 </tr>
 </tbody></table>
-<h2 id='get-a-specific-relationship'>Get a specific Relationship</h2><h3 id='http-request'>HTTP Request</h3>
+<h2 id='get-a-specific-relationship'>Get a specific Relationship</h2>
+<blockquote>
+<p>To get a specific relationship, use the following code:</p>
+</blockquote>
+<pre><code class="highlight shell">  curl https://travelenvy.com/api/me?access_token<span class="o">=</span>your_token
+</code></pre>
+<pre><code class="highlight ruby"><span class="n">access</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"/api/relationships/1"</span><span class="p">)</span>
+</code></pre>
+
+<blockquote>
+<p>The above returns the following json:</p>
+</blockquote>
+<pre><code class="highlight json"><span class="w">
+</span></code></pre>
+<h3 id='http-request'>HTTP Request</h3>
 <p><code class="prettyprint">GET https://travelenvy.com/api/relationships/2</code></p>
 <h3 id='response'>Response</h3>
 <p>Same as above when requesting all relationships</p>
@@ -1607,6 +2138,548 @@ curl "http://travelenvy.com/api/places"
 <tr>
 <td>403</td>
 <td>User is not authorized (the user is not the follower or an admin)</td>
+</tr>
+<tr>
+<td>204</td>
+<td>Successfully deleted</td>
+</tr>
+</tbody></table>
+
+          <h1 id='photos'>Photos</h1><h2 id='get-all-photos'>Get all Photos</h2>
+<blockquote>
+<p>To get all photos, use the following code:</p>
+</blockquote>
+<pre><code class="highlight shell">  curl https://travelenvy.com/api/photos?access_token<span class="o">=</span>your_token
+</code></pre>
+<pre><code class="highlight ruby"><span class="n">access</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"/api/photos"</span><span class="p">).</span><span class="nf">parsed</span>
+</code></pre>
+
+<blockquote>
+<p>The above returns the following json:</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="s2">"photos"</span><span class="p">:[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">3459</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"alt"</span><span class="p">:</span><span class="s2">"The Rose Hotel - Venice - Los Angeles, CA"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"place_id"</span><span class="p">:</span><span class="mi">478</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"source"</span><span class="p">:</span><span class="s2">"http://www.yelp.com/biz/the-rose-hotel-los-angeles"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"added_by"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"src"</span><span class="p">:</span><span class="s2">"/tmp/assets/photos/3459/medium/ls.jpg?1414520565"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"_links"</span><span class="p">:{</span><span class="w">
+      </span><span class="s2">"self"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/photos/3459"</span><span class="p">},</span><span class="w">
+      </span><span class="s2">"place"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/places/478"</span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">3458</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"alt"</span><span class="p">:</span><span class="s2">"Marina del Rey Hotels - Hilton Garden Inn Los Angeles Marina Del ..."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"place_id"</span><span class="p">:</span><span class="mi">478</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"source"</span><span class="p">:</span><span class="s2">"http://hiltongardeninn3.hilton.com/en/hotels/california/hilton-garden-inn-los-angeles-marina-del-rey-LAXDRGI/"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"added_by"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"src"</span><span class="p">:</span><span class="s2">"http://hiltongardeninn3.hilton.com/resources/media/gi/LAXDRGI/en_US/img/shared/full_page_image_gallery/main/GI_extday_698x390_FitToBoxSmallDimension_Center.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"_links"</span><span class="p">:{</span><span class="w">
+      </span><span class="s2">"self"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/photos/3458"</span><span class="p">},</span><span class="w">
+      </span><span class="s2">"place"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/places/478"</span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint returns all photos</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">GET https://travelenvy.com/api/photos</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>photos</td>
+<td>false</td>
+<td>A comma separated list of photo ids by which to filter.  If not present, returns all photos.</td>
+</tr>
+<tr>
+<td>place</td>
+<td>false</td>
+<td>Filters photos by the given place id.  Returns photos for the place.</td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>photo ID</td>
+</tr>
+<tr>
+<td>src</td>
+<td>The url of the photo location to be used in an image tag</td>
+</tr>
+<tr>
+<td>alt</td>
+<td>The alt text for the photo</td>
+</tr>
+<tr>
+<td>source</td>
+<td>The url of the website page the photo was found on</td>
+</tr>
+<tr>
+<td>added_by</td>
+<td>ID of the user who added the photo</td>
+</tr>
+<tr>
+<td>place_id</td>
+<td>ID of the place the photo corresponds to</td>
+</tr>
+<tr>
+<td>_links</td>
+<td>array of hrefs that point to associated objects (here: &ldquo;self&rdquo;, &ldquo;place&rdquo;)</td>
+</tr>
+</tbody></table>
+<h2 id='get-a-specific-photo'>Get a specific photo</h2>
+<blockquote>
+<p>To get a specific photo, use the following code:</p>
+</blockquote>
+<pre><code class="highlight shell">  curl https://travelenvy.com/api/photos?id<span class="o">=</span>1216&amp;access_token<span class="o">=</span>your_token
+</code></pre>
+<pre><code class="highlight ruby"><span class="n">access</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"/api/photos/358"</span><span class="p">).</span><span class="nf">parsed</span>
+</code></pre>
+
+<blockquote>
+<p>The above returns the following json:</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="s2">"photo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">3458</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"alt"</span><span class="p">:</span><span class="s2">"Marina del Rey Hotels - Hilton Garden Inn Los Angeles Marina Del ..."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"place_id"</span><span class="p">:</span><span class="mi">478</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"source"</span><span class="p">:</span><span class="s2">"http://hiltongardeninn3.hilton.com/en/hotels/california/hilton-garden-inn-los-angeles-marina-del-rey-LAXDRGI/"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"added_by"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"src"</span><span class="p">:</span><span class="s2">"http://hiltongardeninn3.hilton.com/resources/media/gi/LAXDRGI/en_US/img/shared/full_page_image_gallery/main/GI_extday_698x390_FitToBoxSmallDimension_Center.jpg"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/photos/3458"</span><span class="p">},</span><span class="w">
+    </span><span class="s2">"place"</span><span class="p">:{</span><span class="s2">"href"</span><span class="p">:</span><span class="s2">"/api/places/478"</span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">GET https://travelenvy.com/api/photos/&lt;ID&gt;</code></p>
+<h3 id='response'>Response</h3>
+<p>Same as above when requesting all photos</p>
+<h2 id='create-a-photo'>Create a photo</h2>
+<blockquote>
+<p>To create a photo, use the following code:</p>
+</blockquote>
+<pre><code class="highlight shell">  curl --data <span class="s2">"photo[place_id]=98&amp;photo[src]=source_url"</span> https://travelenvy.com/api/photos?access_token<span class="o">=</span>your_token
+</code></pre>
+<pre><code class="highlight ruby"><span class="n">access</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s2">"/api/photos?photo[place_id]=98&amp;photo[src]=source_url"</span><span class="p">).</span><span class="nf">parsed</span>
+</code></pre>
+
+<p>The endpoint to create a new photo</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">POST https://travelenvy.com/api/photos?&lt;PARAMS&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameters</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>photo[src]</td>
+<td>The url of the photo file (ex: http://www.hotelsite.com/assets/img145.jpg).  Either us this or &ldquo;upload&rdquo; per create</td>
+<td></td>
+</tr>
+<tr>
+<td>photo[upload]</td>
+<td>the photo file to upload.  Either us this or &ldquo;src&rdquo; per create</td>
+<td></td>
+</tr>
+<tr>
+<td>photo[alt]</td>
+<td>The alt text for the photo</td>
+<td></td>
+</tr>
+<tr>
+<td>photo[source]</td>
+<td>The url of the website page the photo was found on</td>
+<td></td>
+</tr>
+<tr>
+<td>photo[place_id]</td>
+<td>ID of the place the photo corresponds to</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>201</td>
+<td>Successfully created</td>
+</tr>
+</tbody></table>
+<h2 id='update-a-photo'>Update a photo</h2>
+<blockquote>
+<p>To update a photo, use the following code:</p>
+</blockquote>
+<pre><code class="highlight shell">  curl --data <span class="s2">"photo[alt]=Hotel"</span> https://travelenvy.com/api/photos/1215?access_token<span class="o">=</span>your_token
+</code></pre>
+<pre><code class="highlight ruby"><span class="n">access</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s2">"/api/photos/1215?photo[place_id]=98&amp;photo[alt]=Hotel"</span><span class="p">).</span><span class="nf">parsed</span>
+</code></pre>
+
+<p>The endpoint to update a photo</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">PUT https://travelenvy.com/api/photos/&lt;ID&gt;?&lt;PARAMS&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>photo[src]</td>
+<td>The url of the photo file (ex: http://www.hotelsite.com/assets/img145.jpg).  Either us this or &ldquo;upload&rdquo; per create</td>
+<td></td>
+</tr>
+<tr>
+<td>photo[upload]</td>
+<td>the photo file to upload.  Either us this or &ldquo;src&rdquo; per create</td>
+<td></td>
+</tr>
+<tr>
+<td>photo[alt]</td>
+<td>The alt text for the photo</td>
+<td></td>
+</tr>
+<tr>
+<td>photo[source]</td>
+<td>The url of the website page the photo was found on</td>
+<td></td>
+</tr>
+<tr>
+<td>photo[place_id]</td>
+<td>ID of the place the photo corresponds to</td>
+<td></td>
+</tr>
+<tr>
+<td>photo[flag]</td>
+<td>If the photo should be marked for removal (because it is ugly, inaccurate or inappropriate)</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Status Code</th>
+<th>Case</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>204</td>
+<td>Successfully updated</td>
+</tr>
+</tbody></table>
+<h2 id='destroy-a-photo'>Destroy a photo</h2>
+<blockquote>
+<p>To delete a photo, use the following code:</p>
+</blockquote>
+<pre><code class="highlight shell">
+</code></pre>
+<pre><code class="highlight ruby"><span class="n">access</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="s2">"/api/photos/1215"</span><span class="p">)</span>
+</code></pre>
+
+<p>The endpoint to destroy a specific photo</p>
+
+<p><aside class="warning">Only admins and users who created the photo can destroy it.</aside></p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">DELETE https://travelenvy.com/api/photos/1215</code></p>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Status Code</th>
+<th>Case</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>403</td>
+<td>User is not authorized (the user did not create the photo or is not an admin)</td>
+</tr>
+<tr>
+<td>204</td>
+<td>Successfully deleted</td>
+</tr>
+</tbody></table>
+
+          <h1 id='tips'>Tips</h1><h2 id='get-all-tips'>Get all Tips</h2>
+<blockquote>
+<p>To get all tips, use the following code:</p>
+</blockquote>
+<pre><code class="highlight shell">  curl https://travelenvy.com/api/tips?access_token<span class="o">=</span>your_token
+</code></pre>
+<pre><code class="highlight ruby"><span class="n">access</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"/api/tips"</span><span class="p">).</span><span class="nf">parsed</span>
+</code></pre>
+
+<blockquote>
+<p>The above returns the following json:</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="s2">"tips"</span><span class="p">:[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">1216</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"place_id"</span><span class="p">:</span><span class="mi">98</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"plan_place_id"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"content"</span><span class="p">:</span><span class="s2">"go before the lines get long around 9pm"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2014-11-20T19:53:27.804Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="s2">"2014-11-20T19:53:27.804Z"</span><span class="w">
+  </span><span class="p">},{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">1215</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"place_id"</span><span class="p">:</span><span class="mi">95</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"plan_place_id"</span><span class="p">:</span><span class="mi">1468</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"content"</span><span class="p">:</span><span class="s2">"great for #burgers"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2014-11-15T18:44:13.411Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="s2">"2014-11-15T18:44:13.411Z"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint returns all tips</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">GET https://travelenvy.com/api/tips</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>tips</td>
+<td>false</td>
+<td>A comma separated list of tip ids by which to filter.  If not present, returns all tips.</td>
+</tr>
+<tr>
+<td>user</td>
+<td>false</td>
+<td>Filters tips by the given user id.  Returns tips the user created.</td>
+</tr>
+<tr>
+<td>place</td>
+<td>false</td>
+<td>Filters tips by the given place id.  Returns tips for the place.</td>
+</tr>
+<tr>
+<td>plan_place</td>
+<td>false</td>
+<td>Filters tips by the given plan_place id.  Returns the plan_place specific tip.</td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Tip ID</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>ID of the user who created the tip</td>
+</tr>
+<tr>
+<td>place_id</td>
+<td>ID of the place the tip corresponds to</td>
+</tr>
+<tr>
+<td>plan_place_id</td>
+<td>ID of the specific plan_place the tip corresponds to</td>
+</tr>
+<tr>
+<td>content</td>
+<td>tip tip&rsquo;s content</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>datetime tip created</td>
+</tr>
+<tr>
+<td>updated_at</td>
+<td>datetime tip last updated</td>
+</tr>
+<tr>
+<td>_links</td>
+<td>array of hrefs that point to associated objects (here: &ldquo;self&rdquo;, &ldquo;place&rdquo;, &ldquo;plan_place&rdquo;, and &ldquo;user&rdquo;)</td>
+</tr>
+</tbody></table>
+<h2 id='get-a-specific-tip'>Get a specific Tip</h2>
+<blockquote>
+<p>To get a specific tip, use the following code:</p>
+</blockquote>
+<pre><code class="highlight shell">  curl https://travelenvy.com/api/tips?id<span class="o">=</span>1216&amp;access_token<span class="o">=</span>your_token
+</code></pre>
+<pre><code class="highlight ruby"><span class="n">access</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"/api/tips/1216"</span><span class="p">).</span><span class="nf">parsed</span>
+</code></pre>
+
+<blockquote>
+<p>The above returns the following json:</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="s2">"tip"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">1216</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"user_id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"place_id"</span><span class="p">:</span><span class="mi">98</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"plan_place_id"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"content"</span><span class="p">:</span><span class="s2">"go before the lines get long around 9pm"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="s2">"2014-11-20T19:53:27.804Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="s2">"2014-11-20T19:53:27.804Z"</span><span class="w">
+</span><span class="p">}}</span><span class="w">
+</span></code></pre>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">GET https://travelenvy.com/api/tips/&lt;ID&gt;</code></p>
+<h3 id='response'>Response</h3>
+<p>Same as above when requesting all tips</p>
+<h2 id='create-a-tip'>Create a Tip</h2>
+<blockquote>
+<p>To create a tip, use the following code:</p>
+</blockquote>
+<pre><code class="highlight shell">  curl --data <span class="s2">"tip[place_id]=98&amp;tip[content]=great%20burger"</span> https://travelenvy.com/api/tips?access_token<span class="o">=</span>your_token
+</code></pre>
+<pre><code class="highlight ruby"><span class="n">access</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s2">"/api/tips?tip[place_id]=98&amp;tip[content]=great%20burger"</span><span class="p">).</span><span class="nf">parsed</span>
+</code></pre>
+
+<p>The endpoint to create a new tip</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">POST https://travelenvy.com/api/tips?&lt;PARAMS&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>tip[place_id]</td>
+<td>true</td>
+<td>The id of the place the tip refers to</td>
+</tr>
+<tr>
+<td>tip[plan_place_id]</td>
+<td>false</td>
+<td>The id of the plan_place the tip is attached to</td>
+</tr>
+<tr>
+<td>tip[content]</td>
+<td>false</td>
+<td>The content of the tip.  If empty, the tip will not be created but no error is thrown.</td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>201</td>
+<td>Successfully created</td>
+</tr>
+</tbody></table>
+<h2 id='update-a-tip'>Update a Tip</h2>
+<blockquote>
+<p>To update a tip, use the following code:</p>
+</blockquote>
+<pre><code class="highlight shell">  curl --data <span class="s2">"tip[content]=an%20even%20better%20burger"</span> https://travelenvy.com/api/tips/1215?access_token<span class="o">=</span>your_token
+</code></pre>
+<pre><code class="highlight ruby"><span class="n">access</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s2">"/api/tips/1215?tip[place_id]=98&amp;tip[content]=great%20burger"</span><span class="p">).</span><span class="nf">parsed</span>
+</code></pre>
+
+<p>The endpoint to update a tip</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">PUT https://travelenvy.com/api/tips/&lt;ID&gt;?&lt;PARAMS&gt;</code></p>
+
+<p><aside class="warning">Only admins and users who created the tip can update it.</aside></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>tip[place_id]</td>
+<td>true</td>
+<td>The id of the place the tip refers to</td>
+</tr>
+<tr>
+<td>tip[plan_place_id]</td>
+<td>false</td>
+<td>The id of the plan_place the tip is attached to</td>
+</tr>
+<tr>
+<td>tip[content]</td>
+<td>false</td>
+<td>The content of the tip.  If empty, the tip will not be created but no error is thrown.</td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Status Code</th>
+<th>Case</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>204</td>
+<td>Successfully updated</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Unauthorized: the current user did not create this tip</td>
+</tr>
+</tbody></table>
+<h2 id='destroy-a-tip'>Destroy a Tip</h2>
+<blockquote>
+<p>To delete a tip, use the following code:</p>
+</blockquote>
+<pre><code class="highlight shell">
+</code></pre>
+<pre><code class="highlight ruby"><span class="n">access</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="s2">"/api/tips/1215"</span><span class="p">)</span>
+</code></pre>
+
+<p>The endpoint to destroy a specific tip</p>
+
+<p><aside class="warning">Only admins and users who created the tip can destroy it.</aside></p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code class="prettyprint">DELETE https://travelenvy.com/api/tips/&lt;ID&gt;</code></p>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Status Code</th>
+<th>Case</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>403</td>
+<td>User is not authorized (the user did not create the tip or is not an admin)</td>
 </tr>
 <tr>
 <td>204</td>
