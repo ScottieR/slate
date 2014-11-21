@@ -16,6 +16,8 @@ includes:
   - api/plans
   - api/plan_places
   - api/relationships
+  - api/photos
+  - api/tips
   - errors
 
 

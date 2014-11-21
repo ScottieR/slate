@@ -5,7 +5,7 @@
 > To authorize, use this code:
 
 ```shell
-	curl --data "email=[email]&password=[password]" https://travelenvy.com/api/sessions
+curl --data "email=[email]&password=[password]" https://travelenvy.com/api/sessions
 ```
 
 ```ruby

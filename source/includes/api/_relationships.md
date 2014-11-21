@@ -2,11 +2,16 @@
 
 ##Get all Relationships
 
+> To retrieve all relationships, use the following code:
+
 ```shell
+  curl https://travelenvy.com/api/relationships?access_token=your_token
 ```
 
 ```ruby
+access.get("/api/relationships").parsed
 ```
+> The above code returns the following json: 
 
 ```json
 { relationships: [
@@ -68,6 +73,22 @@ followed_name | Name of the user being followed
 _links | array of hrefs that point to associated objects (here: "self" relationship object, "follower" user object, "followed" user object)
 
 ## Get a specific Relationship
+
+> To get a specific relationship, use the following code:
+
+```shell
+  curl https://travelenvy.com/api/me?access_token=your_token
+```
+
+```ruby
+access.get("/api/relationships/1")
+```
+
+> The above returns the following json:
+
+```json
+
+```
 
 ### HTTP Request
 `GET https://travelenvy.com/api/relationships/2`

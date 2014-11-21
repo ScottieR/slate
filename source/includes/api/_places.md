@@ -15,40 +15,6 @@ curl "http://travelenvy.com/api/places"
 ```json
 {"places"=>[
   {
-    "id"=>401, 
-    "added_by"=>1, 
-    "name"=>"The London EDITION", 
-    "summary"=>"New hotspot hotel on the edge of London's SoHo neighborhood", 
-    "category"=>"lodging", 
-    "address"=>"10 Berners Street, London, United Kingdom", 
-    "city_state"=>"London", 
-    "country"=>"gb", 
-    "zip"=>nil, 
-    "neighborhood"=>"SoHo", 
-    "lat"=>"51.516773", 
-    "lng"=>"-0.136334", 
-    "email"=>nil, 
-    "phone"=>"+44 20 7781 0000", 
-    "website"=>"http://www.edition-hotels.marriott.com/london", 
-    "price"=>"477.00",
-    "currency"=>"USD", 
-    "airports"=>"Gatwick Airport,Stansted Airport,London Luton Airport,", 
-    "saves_count"=>1, 
-    "photos_count"=>10, 
-    "continent_id"=>6, 
-    "featured"=>false, 
-    "created_at"=>"2014-06-27T03:39:36.165Z", 
-    "updated_at"=>"2014-07-24T19:18:33.162Z", 
-    "most_pop_photo_id"=>2763, 
-    "main_photo_url"=>"/tmp/assets/photos/2763/original/520.?1403840443", 
-    "saving_user_ids"=>[1], 
-    "photo_ids"=>[2763, 2762, 2761, 2760, 2759, 2758, 2757, 2756, 2755, 2754], 
-    "source_url_ids"=>[], 
-    "plan_ids"=>[255], 
-    "tops_list_ids"=>[], 
-    "tip_ids"=>[]
-  },
-  {
     "id"=>477, 
     "added_by"=>1, 
     "name"=>"Bestia", 
@@ -85,6 +51,8 @@ curl "http://travelenvy.com/api/places"
         "plans":{"href":"/api/plan_places?place=196"},
         "tips":{"href":"/api/tips?place=196"}
     }
+  },
+  ...
 ]}
 ```
 

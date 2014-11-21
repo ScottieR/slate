@@ -206,7 +206,7 @@ plan | false | An id for a specific plan for which to pull plan places
 type | false | Filters result set by object type.  Valid options are "Place", "TransportLeg", and "Note"
 place | false | An id for a specific place to get which plans it is feauted in.  Returns both the plan_place and plan objects
 
-### JSON response
+### Response
 
 Attribute | Description
 --------- | -----------
@@ -254,9 +254,9 @@ To add a place to a plan, create a plan_place as shown in Create a Plan Item wit
 
 ###HTTP Request
 
-`POST https://travelenvy.com/api/plan_places`
+`POST https://travelenvy.com/api/plan_places?<PARAMS>`
 
-### Attributes
+### URL Parameters
 
 Parameter | Required | Description
 --------- | -------- | -----------
@@ -322,9 +322,9 @@ Status Code | Case
 
 ### HTTP Request
 
-`POST https://travelenvy.com/api/plan_places`
+`POST https://travelenvy.com/api/plan_places?<PARAMS>`
 
-### Attributes
+### URL Parameters
 
 Parameter | Required | Description
 --------- | -------- | -----------
@@ -368,9 +368,9 @@ Status Code | Case
 
 ### HTTP Request
 
-`POST https://travelenvy.com/api/plan_places`
+`POST https://travelenvy.com/api/plan_places?<PARAMS>`
 
-### Attributes
+### URL Parameters
 
 Parameter | Required | Description
 --------- | -------- | -----------
